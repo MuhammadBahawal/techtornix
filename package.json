@@ -1,0 +1,33 @@
+{
+  "name": "techtornix-website",
+  "version": "1.0.0",
+  "description": "Modern software house website for Techtornix",
+  "main": "api/health.js",
+  "scripts": {
+    "dev": "concurrently \"vercel dev\" \"cd frontend && npm start\"",
+    "build": "cd frontend && npm run build",
+    "install-all": "npm install && cd frontend && npm install",
+    "vercel-dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "nodejs",
+    "mongodb",
+    "software-house",
+    "vercel",
+    "serverless"
+  ],
+  "author": "Techtornix",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@vercel/node": "^3.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^8.0.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

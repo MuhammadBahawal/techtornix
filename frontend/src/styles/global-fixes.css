@@ -1,0 +1,182 @@
+/* Global Z-Index and Stacking Context Fixes */
+
+/* Ensure proper stacking context hierarchy */
+.navbar-container {
+  z-index: 999999 !important;
+  isolation: isolate;
+  position: fixed !important;
+}
+
+.mobile-menu-overlay {
+  z-index: 999999 !important;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-menu-panel {
+  z-index: 1000000 !important;
+  isolation: isolate;
+}
+
+/* Prevent sections from being hidden by animations or filters */
+.always-visible {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* Tech Stack Section Stability */
+.tech-stack-section {
+  isolation: isolate;
+  contain: layout;
+}
+
+.tech-grid {
+  min-height: 400px;
+  contain: layout;
+}
+
+/* Success Story Section Protection */
+.success-story-section {
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Featured Projects Section Protection */
+.featured-projects-section {
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Working Methodology Section Protection */
+.methodology-section {
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+  /* Ensure mobile navbar is always on top */
+  .navbar-container {
+    z-index: 999999 !important;
+  }
+  
+  /* Mobile menu improvements */
+  .mobile-menu-panel {
+    width: 100vw !important;
+    max-width: 90vw;
+    height: 100vh !important;
+    overflow-y: auto;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Mobile section spacing */
+  .section-padding {
+    padding: 3rem 1rem;
+  }
+  
+  /* Mobile grid improvements */
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+  }
+  
+  /* Mobile card improvements */
+  .project-card,
+  .stat-card,
+  .methodology-step {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Prevent layout shifts during animations */
+.prevent-layout-shift {
+  contain: layout;
+  will-change: transform, opacity;
+}
+
+/* Animation performance improvements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Ensure videos are always visible */
+video {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix for disappearing content during filtering */
+.filter-stable {
+  isolation: isolate;
+  contain: layout;
+  position: relative;
+}
+
+/* Core Web Vitals optimizations */
+.optimize-cls {
+  contain: layout;
+  min-height: fit-content;
+}
+
+/* LCP optimization - use HTML attributes instead of CSS */
+.optimize-lcp {
+  contain: layout;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-menu-panel {
+    border: 2px solid;
+  }
+  
+  .navbar-container {
+    border-bottom: 1px solid;
+  }
+}
+
+/* Focus management for mobile menu */
+.mobile-menu-panel:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  button,
+  a,
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

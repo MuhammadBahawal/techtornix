@@ -1,0 +1,6 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+
+# Allow all crawlers
+Sitemap: https://techtornix.com/sitemap.xml
