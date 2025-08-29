@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/verify', {
+      const response = await fetch('http://techtornix.vercel.app/api/admin/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
   const adminLogin = async (credentials) => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/login', {
+      const response = await fetch('http://techtornix.vercel.app/api/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

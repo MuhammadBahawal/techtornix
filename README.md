@@ -16,7 +16,7 @@ A professional, animated website built with MERN Stack (MongoDB, Express.js, Rea
 
 - **Frontend**: React.js, Three.js, GSAP, Tailwind CSS
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB
+- **Database**: MongoDB 
 - **Authentication**: JWT
 - **File Upload**: Multer
 - **Email**: Nodemailer
