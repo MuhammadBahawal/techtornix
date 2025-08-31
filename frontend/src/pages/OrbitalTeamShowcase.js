@@ -19,34 +19,41 @@ const OrbitalTeamShowcase = ({ teamData = [] }) => {
         },
         {
             id: 2,
+            name: "Tanzila Farooq",
+            role: "Co-Founder",
+            image: "/images/team/tanzila-farooq.jpg",
+            isCEO: false
+        },
+        {
+            id: 3,
             name: "Sarah Johnson",
             role: "CTO Techtornix Solutions",
             image: "/images/team/sarah-johnson.jpg",
             isCEO: false
         },
         {
-            id: 3,
+            id: 4,
             name: "Mike Chen",
             role: "Lead Designer",
             image: "/images/team/mike-chen.jpg",
             isCEO: false
         },
         {
-            id: 4,
+            id: 5,
             name: "Emily Davis",
             role: "Project Manager",
             image: "/images/team/emily-davis.jpg",
             isCEO: false
         },
         {
-            id: 5,
+            id: 6,
             name: "Alex Rodriguez",
             role: "Full-Stack Developer",
             image: "/images/team/alex-rodriguez.jpg",
             isCEO: false
         },
         {
-            id: 6,
+            id: 7,
             name: "Lisa Wang",
             role: "Mobile Developer",
             image: "/images/team/lisa-wang.jpg",
@@ -57,6 +64,7 @@ const OrbitalTeamShowcase = ({ teamData = [] }) => {
     const team = teamData.length > 0 ? teamData : defaultTeam;
     const ceo = team.find(member => member.isCEO);
     const otherMembers = team.filter(member => !member.isCEO);
+    const cofounders = otherMembers.filter(member => member.role.includes("Co-Founder"));
 
     // Orbital positions for team members
     const orbitalPositions = [
@@ -156,6 +164,39 @@ const OrbitalTeamShowcase = ({ teamData = [] }) => {
                     </div>
                 </motion.div>
             )}
+
+
+            {/* cofounder display in same orbit  */}
+            {cofounders.map((cofounder, index) => (
+                <motion.div
+                    key={cofounder.id}
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    // in same orbit of ceo but on right side
+
+                    className="absolute top-28 left-2/3 transform -translate-x-1/2 flex flex-col items-center z-20"
+                    onMouseEnter={() => setHoveredMember(cofounder.id)}
+                    onMouseLeave={() => setHoveredMember(null)}
+                >
+                    <div className="relative">
+                        <motion.img
+                            src={cofounder.image}
+                            alt={cofounder.name}
+                            className="w-24 h-24 rounded-full border-4 border-white shadow-2xl object-cover"
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.3 }}
+                        />
+                        {/* CEO Badge */}
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-bold">
+                            Co-Founder
+                        </div>
+                    </div>
+                    <div className="mt-4 text-center">
+                        <p className="text-white font-bold text-lg">{cofounder.name}</p>
+                        <p className="text-white/80 text-sm">{cofounder.role}</p>
+                    </div>
+                </motion.div>
+            ))}
 
             {/* Center Hire Button */}
             <motion.button
