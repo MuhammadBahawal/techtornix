@@ -42,9 +42,12 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="relative py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 overflow-hidden"
+      className="relative py-20 overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #37b7c3 0%, #2a8a94 50%, #1d5f68 100%)'
+      }}
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -76,7 +79,7 @@ const CTASection = () => {
               </span>
             </h2>
             <p className="text-xl text-primary-100 max-w-3xl mx-auto leading-relaxed">
-              Let's collaborate to bring your vision to life with cutting-edge technology 
+              Let's collaborate to bring your vision to life with cutting-edge technology
               and innovative solutions that drive real results.
             </p>
           </motion.div>
@@ -96,7 +99,7 @@ const CTASection = () => {
               <span>Start Your Project</span>
               <FiArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
-            
+
             <Link
               to="/portfolio"
               className="group inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300"

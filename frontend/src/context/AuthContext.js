@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -19,52 +20,91 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored auth tokens on app load
-    const token = localStorage.getItem('authToken');
-    const userData = localStorage.getItem('userData');
-    const adminAuth = localStorage.getItem('adminAuth');
-    const adminData = localStorage.getItem('adminData');
-    
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData));
-        setIsAuthenticated(true);
-      } catch (error) {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userData');
-      }
-    }
-
-    if (adminAuth === 'true' && adminData) {
-      try {
-        setAdmin(JSON.parse(adminData));
-        setIsAdmin(true);
-      } catch (error) {
-        localStorage.removeItem('adminAuth');
-        localStorage.removeItem('adminData');
-      }
-    }
-    
-    setLoading(false);
+    checkAuthStatus();
   }, []);
+
+  const checkAuthStatus = async () => {
+    try {
+      // Check admin authentication
+      const adminAuth = localStorage.getItem('adminAuth');
+      const adminData = localStorage.getItem('adminData');
+      const adminToken = localStorage.getItem('adminToken');
+
+      if (adminAuth === 'true' && adminData && adminToken) {
+        try {
+          // Verify admin token with backend
+          const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${adminToken}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+              setAdmin(JSON.parse(adminData));
+              setIsAdmin(true);
+            } else {
+              // Invalid token, clear admin auth
+              clearAdminAuth();
+            }
+          } else {
+            // Token expired or invalid
+            clearAdminAuth();
+          }
+        } catch (error) {
+          console.error('Admin auth verification failed:', error);
+          clearAdminAuth();
+        }
+      }
+
+      // Check regular user authentication
+      const token = localStorage.getItem('authToken');
+      const userData = localStorage.getItem('userData');
+
+      if (token && userData) {
+        try {
+          setUser(JSON.parse(userData));
+          setIsAuthenticated(true);
+        } catch (error) {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('userData');
+        }
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearAdminAuth = () => {
+    localStorage.removeItem('adminAuth');
+    localStorage.removeItem('adminData');
+    localStorage.removeItem('adminToken');
+    setAdmin(null);
+    setIsAdmin(false);
+  };
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://techtornix.vercel.app/api/admin/verify', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem('authToken', data.token);
+      if (data.success) {
+        localStorage.setItem('authToken', data.token || 'user-token');
         localStorage.setItem('userData', JSON.stringify(data.user));
         setUser(data.user);
+        setIsAuthenticated(true);
         return { success: true };
       } else {
         return { success: false, message: data.message };
@@ -74,21 +114,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const adminLogin = async (credentials) => {
+  const adminLogin = async (email, password) => {
     try {
-      const response = await fetch('http://techtornix.vercel.app/api/admin/login', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem('adminToken', data.token);
+      if (data.success) {
+        localStorage.setItem('adminAuth', 'true');
+        localStorage.setItem('adminToken', data.token || 'admin-token-' + Date.now());
         localStorage.setItem('adminData', JSON.stringify(data.admin));
         setAdmin(data.admin);
         setIsAdmin(true);
@@ -97,13 +137,14 @@ export const AuthProvider = ({ children }) => {
         return { success: false, message: data.message };
       }
     } catch (error) {
+      console.error('Admin login error:', error);
       return { success: false, message: 'Network error' };
     }
   };
 
   const register = async (userData) => {
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,10 +154,11 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.success) {
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('userData', JSON.stringify(data.user));
         setUser(data.user);
+        setIsAuthenticated(true);
         return { success: true };
       } else {
         return { success: false, message: data.message };
@@ -130,13 +172,26 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userData');
     setUser(null);
+    setIsAuthenticated(false);
   };
 
-  const adminLogout = () => {
-    localStorage.removeItem('adminAuth');
-    localStorage.removeItem('adminData');
-    setAdmin(null);
-    setIsAdmin(false);
+  const adminLogout = async () => {
+    try {
+      const adminToken = localStorage.getItem('adminToken');
+      if (adminToken) {
+        await fetch(`${API_BASE_URL}/api/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${adminToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      clearAdminAuth();
+    }
   };
 
   const value = {

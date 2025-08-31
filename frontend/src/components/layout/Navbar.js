@@ -170,12 +170,19 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20 px-4 md:px-0">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-primary-600 to-accent-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-lg md:text-xl">T</span>
+          <Link to="/" className="flex items-center group flex-shrink-0">
+            <div className="w-20 h-20 md:w-20 md:h-20 from-primary-600 to-accent-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 p-1">
+              <img
+                src="/images/logos/techtornix-iconLogo.png"
+                alt="Techtornix Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span className="text-xl md:text-2xl font-bold gradient-text">Techtornix</span>
+
+            <span className="ml-1 text-xl md:text-2xl font-bold gradient-text transform group-hover:scale-110 transition-transform duration-300">Techtornix</span>
           </Link>
+
+
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
@@ -189,7 +196,7 @@ const Navbar = () => {
                   }`}
                 style={{
                   background: 'transparent',
-                  color: '#fff',
+                  color: isDark ? '#fff' : '#1f2937',
                   opacity: isActive(item.href) ? 1 : 0.85,
                   fontWeight: isActive(item.href) ? 700 : 500
                 }}
@@ -202,10 +209,12 @@ const Navbar = () => {
             <div className="relative" onMouseEnter={() => setShowServices(true)} onMouseLeave={() => setShowServices(false)}>
               <button
                 onClick={handleServicesToggle}
-                className={`navbar-item flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname.startsWith('/services')
-                  ? 'text-primary-600 active'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-                  }`}
+                className={`navbar-item flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200`}
+                style={{
+                  color: isDark ? '#fff' : '#1f2937',
+                  opacity: location.pathname.startsWith('/services') ? 1 : 0.85,
+                  fontWeight: location.pathname.startsWith('/services') ? 700 : 500
+                }}
               >
                 <span>Services</span>
                 <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${showServices ? 'rotate-180' : ''}`} />
@@ -219,8 +228,13 @@ const Navbar = () => {
                     initial="closed"
                     animate="open"
                     exit="closed"
-                    className="absolute top-full left-0 mt-2 w-64 rounded-xl shadow-xl border border-gray-800 overflow-hidden z-50"
-                    style={{ background: 'transparent', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }}
+                    className="absolute top-full left-0 mt-2 w-64 rounded-xl shadow-xl border overflow-hidden z-50"
+                    style={{
+                      background: isDark ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                      color: isDark ? '#fff' : '#1f2937',
+                      borderColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)',
+                      backdropFilter: 'blur(10px)'
+                    }}
                   >
                     {services.map((service, index) => {
                       const Icon = service.icon;
@@ -231,17 +245,23 @@ const Navbar = () => {
                           className="flex items-center space-x-3 px-4 py-3 text-sm transition-colors duration-200"
                           style={{
                             background: 'transparent',
-                            color: '#fff',
+                            color: isDark ? '#fff' : '#1f2937',
                             opacity: 0.95,
                             fontWeight: 500,
                             boxShadow: 'none',
                             border: 'none'
                           }}
-                          onMouseOver={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#fff'; }}
-                          onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#fff'; }}
+                          onMouseOver={e => {
+                            e.currentTarget.style.backgroundColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+                            e.currentTarget.style.color = isDark ? '#fff' : '#1f2937';
+                          }}
+                          onMouseOut={e => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = isDark ? '#fff' : '#1f2937';
+                          }}
                           onClick={() => setShowServices(false)}
                         >
-                          <Icon className="w-5 h-5" style={{ color: '#fff' }} />
+                          <Icon className="w-5 h-5" style={{ color: isDark ? '#fff' : '#1f2937' }} />
                           <span>{service.name}</span>
                         </Link>
                       );
@@ -302,20 +322,20 @@ const Navbar = () => {
               right: 0,
               bottom: 0,
               zIndex: 1000000,
-              backgroundColor: '#130d29',
-              boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.5)',
+              backgroundColor: isDark ? '#130d29' : '#ffffff',
+              boxShadow: isDark ? '-10px 0 30px rgba(0, 0, 0, 0.5)' : '-10px 0 30px rgba(0, 0, 0, 0.1)',
               isolation: 'isolate'
             }}
           >
-            <div className="p-6 h-full" style={{ backgroundColor: '#130d29' }}>
-              <div className="flex items-center justify-between mb-8 pt-4 border-b-2 border-gray-200 pb-4">
-                <span className="text-2xl font-bold text-white">Menu</span>
+            <div className="p-6 h-full" style={{ backgroundColor: isDark ? '#130d29' : '#ffffff' }}>
+              <div className="flex items-center justify-between mb-8 pt-4 border-b-2 pb-4" style={{ borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' }}>
+                <span className="text-2xl font-bold" style={{ color: isDark ? '#ffffff' : '#1f2937' }}>Menu</span>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-3 rounded-lg"
                   style={{
-                    backgroundColor: "#130d29",
-                    color: "#ffffff"
+                    backgroundColor: isDark ? "#130d29" : "#ffffff",
+                    color: isDark ? "#ffffff" : "#1f2937"
                   }}
                 >
                   <FiX className="w-6 h-6" />
@@ -334,8 +354,8 @@ const Navbar = () => {
                       }`}
                     style={{
                       background: isActive(item.href) ? '#2563eb' : 'transparent',
-                      color: '#fff',
-                      borderColor: 'rgba(255,255,255,0.15)',
+                      color: isActive(item.href) ? '#fff' : (isDark ? '#fff' : '#1f2937'),
+                      borderColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)',
                       fontWeight: isActive(item.href) ? 700 : 500
                     }}
                     onClick={() => setIsOpen(false)}
@@ -345,13 +365,14 @@ const Navbar = () => {
                 ))}
 
                 {/* Mobile Services (Dropdown) */}
-                <div className="border-t-2 border-gray-300 pt-6 mt-6">
+                <div className="border-t-2 pt-6 mt-6" style={{ borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' }}>
                   <button
                     onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                     className="w-full flex items-center justify-between px-4 py-2 
              text-lg font-semibold uppercase tracking-wider mb-3
-              text-white rounded-lg shadow-md hover:shadow-lg 
+              rounded-lg shadow-md hover:shadow-lg 
              active:scale-95 transition-all duration-300"
+                    style={{ color: isDark ? '#fff' : '#1f2937' }}
                   >
                     <span>Services</span>
                     <FiChevronDown
@@ -379,15 +400,21 @@ const Navbar = () => {
                               className="flex items-center space-x-3 px-6 py-4 rounded-lg transition-colors duration-200 relative z-10 mb-3"
                               style={{
                                 background: 'transparent',
-                                color: '#fff',
+                                color: isDark ? '#fff' : '#1f2937',
                                 border: 'none',
                                 fontWeight: 600
                               }}
-                              onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.color = '#fff'; }}
-                              onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#fff'; }}
+                              onMouseOver={e => {
+                                e.currentTarget.style.backgroundColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.05)';
+                                e.currentTarget.style.color = isDark ? '#fff' : '#1f2937';
+                              }}
+                              onMouseOut={e => {
+                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget.style.color = isDark ? '#fff' : '#1f2937';
+                              }}
                               onClick={() => setIsOpen(false)}
                             >
-                              <Icon className="w-6 h-6" style={{ color: '#fff' }} />
+                              <Icon className="w-6 h-6" style={{ color: isDark ? '#fff' : '#1f2937' }} />
                               <span>{service.name}</span>
                             </Link>
                           );
@@ -400,7 +427,7 @@ const Navbar = () => {
 
                 {/* Mobile Admin Link */}
                 {isAuthenticated && isAdmin && (
-                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-6">
+                  <div className="border-t pt-4 mt-6" style={{ borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' }}>
                     <Link
                       to="/admin"
                       className="block w-full btn-primary text-center"

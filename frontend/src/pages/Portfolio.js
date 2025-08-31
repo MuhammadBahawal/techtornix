@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  FiExternalLink, 
-  FiGithub, 
-  FiFilter, 
+import {
+  FiExternalLink,
+  FiGithub,
+  FiFilter,
   FiX,
   FiArrowRight,
   FiCalendar,
@@ -17,110 +17,168 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Demo Portfolio Projects Data
+const portfolioProjects = [
+  {
+    id: 1,
+    title: 'E-Commerce Platform - TechMart',
+    category: 'Web Development',
+    description: 'A comprehensive e-commerce solution built with React and Node.js, featuring advanced inventory management, payment processing, and real-time analytics dashboard.',
+    image: '/images/projects/ecommerce.jpg',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'Socket.io'],
+    client: 'TechMart Inc.',
+    duration: '4 months',
+    teamSize: 5,
+    projectUrl: 'https://techmart-demo.com',
+    githubUrl: 'https://github.com/techtornix/techmart',
+    featured: true
+  },
+  {
+    id: 2,
+    title: 'AI-Powered Healthcare App',
+    category: 'Mobile App',
+    description: 'Mobile application with AI-driven symptom checker, appointment booking, and telemedicine features for improved healthcare accessibility.',
+    image: '/images/projects/healthcare.jpg',
+    technologies: ['React Native', 'Python', 'TensorFlow', 'Firebase', 'WebRTC'],
+    client: 'HealthTech Solutions',
+    duration: '6 months',
+    teamSize: 6,
+    projectUrl: 'https://healthapp-demo.com',
+    githubUrl: 'https://github.com/techtornix/healthapp',
+    featured: true
+  },
+  {
+    id: 3,
+    title: 'Smart Finance Dashboard',
+    category: 'SaaS',
+    description: 'Comprehensive financial management platform with real-time analytics, automated reporting, and AI-powered insights for businesses.',
+    image: '/images/projects/finance.jpg',
+    technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Chart.js', 'AWS'],
+    client: 'FinanceFlow Corp',
+    duration: '5 months',
+    teamSize: 4,
+    projectUrl: 'https://financeflow-demo.com',
+    githubUrl: 'https://github.com/techtornix/financeflow',
+    featured: false
+  },
+  {
+    id: 4,
+    title: 'Real Estate Management System',
+    category: 'Web Development',
+    description: 'Complete property management solution with virtual tours, CRM integration, and automated marketing tools for real estate agencies.',
+    image: '/images/projects/realestate.jpg',
+    technologies: ['Angular', 'Laravel', 'MySQL', 'Three.js', 'Google Maps API'],
+    client: 'PropertyPro Agency',
+    duration: '3 months',
+    teamSize: 4,
+    projectUrl: 'https://propertypro-demo.com',
+    githubUrl: 'https://github.com/techtornix/propertypro',
+    featured: false
+  },
+  {
+    id: 5,
+    title: 'Educational Learning Platform',
+    category: 'E-Learning',
+    description: 'Interactive online learning platform with video streaming, progress tracking, and gamification elements for enhanced student engagement.',
+    image: '/images/projects/education.jpg',
+    technologies: ['React', 'Express.js', 'MongoDB', 'WebRTC', 'AWS S3'],
+    client: 'EduTech Academy',
+    duration: '4 months',
+    teamSize: 5,
+    projectUrl: 'https://edutech-demo.com',
+    githubUrl: 'https://github.com/techtornix/edutech',
+    featured: true
+  },
+  {
+    id: 6,
+    title: 'Social Media Analytics Tool',
+    category: 'AI/ML',
+    description: 'Advanced social media monitoring and analytics platform with sentiment analysis, trend prediction, and automated reporting.',
+    image: '/images/projects/social.jpg',
+    technologies: ['Python', 'Django', 'TensorFlow', 'Redis', 'Elasticsearch'],
+    client: 'SocialMetrics Ltd',
+    duration: '5 months',
+    teamSize: 6,
+    projectUrl: 'https://socialmetrics-demo.com',
+    githubUrl: 'https://github.com/techtornix/socialmetrics',
+    featured: false
+  },
+  {
+    id: 7,
+    title: 'Restaurant Management System',
+    category: 'Web Development',
+    description: 'Complete restaurant management solution with POS integration, inventory tracking, and customer loyalty program.',
+    image: '/images/projects/restaurant.jpg',
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Twilio'],
+    client: 'FoodChain Restaurants',
+    duration: '3 months',
+    teamSize: 3,
+    projectUrl: 'https://foodchain-demo.com',
+    githubUrl: 'https://github.com/techtornix/foodchain',
+    featured: false
+  },
+  {
+    id: 8,
+    title: 'Fitness Tracking Mobile App',
+    category: 'Mobile App',
+    description: 'Comprehensive fitness app with workout planning, nutrition tracking, and social features for fitness enthusiasts.',
+    image: '/images/projects/fitness.jpg',
+    technologies: ['Flutter', 'Firebase', 'Node.js', 'MongoDB', 'HealthKit'],
+    client: 'FitLife Solutions',
+    duration: '4 months',
+    teamSize: 4,
+    projectUrl: 'https://fitlife-demo.com',
+    githubUrl: 'https://github.com/techtornix/fitlife',
+    featured: false
+  },
+  {
+    id: 9,
+    title: 'Blockchain Voting System',
+    category: 'Blockchain',
+    description: 'Secure and transparent voting platform built on blockchain technology with smart contracts and real-time result tracking.',
+    image: '/images/projects/voting.jpg',
+    technologies: ['Solidity', 'Web3.js', 'React', 'Ethereum', 'IPFS'],
+    client: 'VoteSecure Foundation',
+    duration: '6 months',
+    teamSize: 5,
+    projectUrl: 'https://votesecure-demo.com',
+    githubUrl: 'https://github.com/techtornix/votesecure',
+    featured: true
+  }
+];
+
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [projects] = useState(portfolioProjects);
+  const [loading] = useState(false);
 
-  const categories = [
-    { id: 'all', name: 'All Projects', count: 12 },
-    { id: 'web', name: 'Web Development', count: 5 },
-    { id: 'mobile', name: 'Mobile Apps', count: 3 },
-    { id: 'ai', name: 'AI Solutions', count: 2 },
-    { id: 'saas', name: 'SaaS Products', count: 2 }
-  ];
+  // Generate categories from projects
+  const categories = React.useMemo(() => {
+    const categoryMap = new Map();
+    categoryMap.set('all', { id: 'all', name: 'All Projects', count: projects.length });
 
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      category: 'web',
-      description: 'A modern e-commerce platform with advanced features including real-time inventory, AI-powered recommendations, and seamless payment integration.',
-      image: '/images/projects/ecommerce.jpg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'AWS'],
-      client: 'RetailCorp Inc.',
-      duration: '6 months',
-      teamSize: 5,
-      projectUrl: 'https://example-ecommerce.com',
-      githubUrl: 'https://github.com/techtornix/ecommerce',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Healthcare Mobile App',
-      category: 'mobile',
-      description: 'A comprehensive healthcare app connecting patients with doctors, featuring telemedicine, appointment booking, and health tracking.',
-      image: '/images/projects/healthcare.jpg',
-      technologies: ['React Native', 'Firebase', 'WebRTC', 'Node.js'],
-      client: 'MedCare Solutions',
-      duration: '8 months',
-      teamSize: 6,
-      projectUrl: 'https://medcare-app.com',
-      githubUrl: 'https://github.com/techtornix/healthcare-app',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'AI Analytics Dashboard',
-      category: 'ai',
-      description: 'An intelligent analytics dashboard that provides real-time insights and predictive analytics for business decision making.',
-      image: '/images/projects/ai-dashboard.jpg',
-      technologies: ['Python', 'TensorFlow', 'React', 'D3.js', 'PostgreSQL'],
-      client: 'DataFlow Solutions',
-      duration: '10 months',
-      teamSize: 4,
-      projectUrl: 'https://dataflow-analytics.com',
-      githubUrl: 'https://github.com/techtornix/ai-analytics',
-      featured: true
-    },
-    {
-      id: 4,
-      title: 'Project Management SaaS',
-      category: 'saas',
-      description: 'A comprehensive project management platform with team collaboration, time tracking, and advanced reporting features.',
-      image: '/images/projects/project-saas.jpg',
-      technologies: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'Docker'],
-      client: 'TaskFlow Inc.',
-      duration: '12 months',
-      teamSize: 8,
-      projectUrl: 'https://taskflow-saas.com',
-      githubUrl: 'https://github.com/techtornix/project-saas',
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Restaurant Website & App',
-      category: 'web',
-      description: 'A modern restaurant website with online ordering, table reservations, and customer management system.',
-      image: '/images/projects/restaurant.jpg',
-      technologies: ['Next.js', 'React Native', 'Node.js', 'MongoDB'],
-      client: 'Gourmet Bistro',
-      duration: '4 months',
-      teamSize: 4,
-      projectUrl: 'https://gourmet-bistro.com',
-      githubUrl: 'https://github.com/techtornix/restaurant-app',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Fitness Tracking App',
-      category: 'mobile',
-      description: 'A comprehensive fitness app with workout tracking, nutrition planning, and social features.',
-      image: '/images/projects/fitness.jpg',
-      technologies: ['Flutter', 'Firebase', 'Node.js', 'MongoDB'],
-      client: 'FitLife Technologies',
-      duration: '6 months',
-      teamSize: 5,
-      projectUrl: 'https://fitlife-app.com',
-      githubUrl: 'https://github.com/techtornix/fitness-app',
-      featured: false
-    }
-  ];
+    projects.forEach(project => {
+      const cat = project.category.toLowerCase().replace(/\s+/g, '-');
+      if (categoryMap.has(cat)) {
+        categoryMap.get(cat).count++;
+      } else {
+        categoryMap.set(cat, {
+          id: cat,
+          name: project.category,
+          count: 1
+        });
+      }
+    });
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+    return Array.from(categoryMap.values());
+  }, [projects]);
+
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
+    : projects.filter(project => project.category.toLowerCase().replace(/\s+/g, '-') === selectedCategory);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -183,7 +241,7 @@ const Portfolio = () => {
                 Our <span className="gradient-text">Portfolio</span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Discover our successful projects and see how we've helped businesses 
+                Discover our successful projects and see how we've helped businesses
                 transform their digital presence with innovative solutions.
               </p>
             </motion.div>
@@ -193,28 +251,24 @@ const Portfolio = () => {
         {/* Filter Section */}
         <section className="py-12 bg-white dark:bg-gray-900 sticky top-20 z-40 border-b border-gray-200 dark:border-gray-700">
           <div className="container-custom">
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
-                    selectedCategory === category.id
-                      ? 'bg-primary-600 text-white shadow-lg'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-                  }`}
+            <div className="flex justify-center">
+              {/* Category Dropdown */}
+              <div className="relative">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 pr-10 text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent min-w-[200px] cursor-pointer"
                 >
-                  <FiFilter className="w-4 h-4" />
-                  <span>{category.name}</span>
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    selectedCategory === category.id
-                      ? 'bg-white/20 text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                  }`}>
-                    {category.count}
-                  </span>
-                </button>
-              ))}
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name} ({category.count})
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                  <FiFilter className="w-4 h-4 text-gray-400" />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -247,7 +301,7 @@ const Portfolio = () => {
                             {project.title.split(' ')[0]}
                           </div>
                         </div>
-                        
+
                         {project.featured && (
                           <div className="absolute top-4 right-4">
                             <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-full text-xs font-bold">

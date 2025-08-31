@@ -11,7 +11,7 @@ const AnimatedLogo = () => {
     // Simple CSS-based animation approach to avoid GSAP conflicts
     const logoIcon = container.querySelector('.logo-icon');
     const logoText = container.querySelector('.logo-text');
-    
+
     if (logoIcon && logoText) {
       // Add entrance animation classes
       setTimeout(() => {
@@ -19,7 +19,7 @@ const AnimatedLogo = () => {
         logoIcon.style.transform = 'scale(1) rotate(0deg)';
         logoIcon.style.transition = 'all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
       }, 100);
-      
+
       setTimeout(() => {
         logoText.style.opacity = '1';
         logoText.style.transform = 'translateY(0)';
@@ -30,7 +30,7 @@ const AnimatedLogo = () => {
       const handleMouseEnter = () => {
         logoIcon.style.transform = 'scale(1.1) rotate(0deg)';
       };
-      
+
       const handleMouseLeave = () => {
         logoIcon.style.transform = 'scale(1) rotate(0deg)';
       };
@@ -87,8 +87,13 @@ const AnimatedLogo = () => {
           <div className="relative">
             {/* Main circle */}
             <div className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
-              <span className="text-white font-bold text-3xl md:text-4xl lg:text-5xl">T</span>
+              <img
+                src="/images/logos/techtornix-iconLogo.png"
+                alt="Techtornix Logo"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 object-contain"
+              />
             </div>
+
             {/* Decorative rings */}
             <div className="absolute -inset-2 border-2 border-blue-400/30 rounded-full animate-ping"></div>
             <div className="absolute -inset-4 border border-purple-400/20 rounded-full animate-pulse"></div>

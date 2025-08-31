@@ -13,7 +13,7 @@ import TeamManagement from './TeamManagement';
 import ClientManagement from './ClientManagement';
 import ContactManagement from './ContactManagement';
 import GeneralSettings from './GeneralSettings';
-import { 
+import {
   FiHome,
   FiUsers,
   FiBriefcase,
@@ -125,85 +125,23 @@ const AdminDashboard = () => {
           <div className="mt-6">
             <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quick Actions</h4>
             <div className="grid grid-cols-2 gap-3">
-              <button className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-                <FiFileText className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto mb-1" />
-                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">New Post</p>
-              </button>
-              <button className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors">
-                <FiBriefcase className="w-5 h-5 text-green-600 dark:text-green-400 mx-auto mb-1" />
-                <p className="text-xs font-medium text-green-600 dark:text-green-400">Add Project</p>
-              </button>
+              <Link
+                to="/admin/blog"
+                className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors flex flex-col items-center"
+              >
+                <FiFileText className="w-5 h-5 text-blue-600 dark:text-blue-400 mb-1" />
+                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">Manage Blog</p>
+              </Link>
+              <Link
+                to="/admin/portfolio"
+                className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors flex flex-col items-center"
+              >
+                <FiBriefcase className="w-5 h-5 text-green-600 dark:text-green-400 mb-1" />
+                <p className="text-xs font-medium text-green-600 dark:text-green-400">Manage Portfolio</p>
+              </Link>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-
-  const BlogManagement = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Blog Management</h2>
-        <button className="btn-primary">
-          <FiFileText className="w-5 h-5 mr-2" />
-          New Post
-        </button>
-      </div>
-      <div className="text-center py-12">
-        <FiFileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">Blog management interface would go here</p>
-      </div>
-    </div>
-  );
-
-  const PortfolioManagement = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Portfolio Management</h2>
-        <button className="btn-primary">
-          <FiBriefcase className="w-5 h-5 mr-2" />
-          New Project
-        </button>
-      </div>
-      <div className="text-center py-12">
-        <FiBriefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">Portfolio management interface would go here</p>
-      </div>
-    </div>
-  );
-
-  const CareersManagement = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Careers Management</h2>
-        <button className="btn-primary">
-          <FiUsers className="w-5 h-5 mr-2" />
-          New Job Posting
-        </button>
-      </div>
-      <div className="text-center py-12">
-        <FiUsers className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">Careers management interface would go here</p>
-      </div>
-    </div>
-  );
-
-  const ContactsManagement = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Messages</h2>
-      <div className="text-center py-12">
-        <FiMail className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">Contact messages interface would go here</p>
-      </div>
-    </div>
-  );
-
-  const Settings = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Settings</h2>
-      <div className="text-center py-12">
-        <FiSettings className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">Settings interface would go here</p>
       </div>
     </div>
   );
@@ -217,9 +155,8 @@ const AdminDashboard = () => {
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
         {/* Sidebar */}
-        <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } overflow-y-auto`}>
+        <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } overflow-y-auto`}>
           <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 dark:border-gray-700">
             <h1 className="text-xl font-bold gradient-text">Techtornix Admin</h1>
             <button
@@ -236,11 +173,10 @@ const AdminDashboard = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 ${
-                      location.pathname === item.path
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 ${location.pathname === item.path
                         ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                    }`}
+                      }`}
                     onClick={() => setSidebarOpen(false)}
                   >
                     <item.icon className="w-5 h-5" />
@@ -252,7 +188,7 @@ const AdminDashboard = () => {
           </nav>
 
           <div className="absolute bottom-4 left-4 right-4">
-            <button 
+            <button
               onClick={handleLogout}
               className="flex items-center space-x-3 w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
             >
@@ -273,7 +209,7 @@ const AdminDashboard = () => {
               >
                 <FiMenu className="w-6 h-6" />
               </button>
-              
+
               <div className="flex items-center space-x-4">
                 <div className="text-right">
                   <p className="text-sm font-medium text-gray-900 dark:text-white">Admin User</p>
@@ -314,79 +250,6 @@ const AdminDashboard = () => {
         )}
       </div>
     </>
-  );
-};
-
-const DashboardHome = () => {
-  const [stats, setStats] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://techtornix.vercel.app/api/admin/dashboard', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-          credentials: 'include'
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setStats(data.stats || []);
-        }
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDashboardData();
-  }, []);
-
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <RealTimeAnalytics />
-
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-          <FiActivity className="w-5 h-5 mr-2 text-cyan-500" />
-          Recent Activity
-        </h3>
-        <div className="space-y-4">
-          <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <FiMail className="w-5 h-5 text-blue-500 mr-3" />
-            <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">New contact message</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">2 minutes ago</p>
-            </div>
-          </div>
-          <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <FiUsers className="w-5 h-5 text-green-500 mr-3" />
-            <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">New job application</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">15 minutes ago</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quick Actions</h4>
-          <div className="grid grid-cols-2 gap-3">
-            <button className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors">
-              <FiFileText className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto mb-1" />
-              <p className="text-xs font-medium text-blue-600 dark:text-blue-400">New Post</p>
-            </button>
-            <button className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors">
-              <FiBriefcase className="w-5 h-5 text-green-600 dark:text-green-400 mx-auto mb-1" />
-              <p className="text-xs font-medium text-green-600 dark:text-green-400">Add Project</p>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

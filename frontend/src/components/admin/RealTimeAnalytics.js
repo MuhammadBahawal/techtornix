@@ -22,17 +22,19 @@ const RealTimeAnalytics = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://techtornix.vercel.app/api/admin/analytics/realtime', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
+        const response = await fetch('https://techtornix.com/api/analytics/realtime', {
           credentials: 'include'
         });
 
         if (response.ok) {
           const data = await response.json();
-          setAnalytics(data);
+          if (data.success) {
+            setAnalytics({
+              activeVisitors: data.activeVisitors,
+              recentSessions: data.recentSessions,
+              timestamp: data.timestamp
+            });
+          }
         }
       } catch (error) {
         console.error('Error fetching analytics:', error);

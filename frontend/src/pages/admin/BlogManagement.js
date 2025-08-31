@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiEye, FiImage } from 'react-icons/fi';
-import adminDataManager from '../../utils/adminData';
+import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../../config/api';
 
 const BlogManagement = () => {
   const [blogs, setBlogs] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -22,9 +24,33 @@ const BlogManagement = () => {
     loadBlogs();
   }, []);
 
-  const loadBlogs = () => {
-    const blogsData = adminDataManager.getAll('blogs');
-    setBlogs(blogsData);
+  const loadBlogs = async () => {
+    try {
+      setLoading(true);
+      console.log('Loading blogs from API...');
+      const response = await fetch(`${API_BASE_URL}/blogs`, {
+        credentials: 'include'
+      });
+
+      console.log('Blog API Response status:', response.status);
+      const data = await response.json();
+      console.log('Blog API Response data:', data);
+
+      if (data.success) {
+        setBlogs(data.data || []);
+        console.log('Blogs loaded successfully:', data.data?.length || 0);
+      } else {
+        console.error('Blog API returned error:', data.message);
+        toast.error(data.message || 'Failed to load blogs');
+        setBlogs([]);
+      }
+    } catch (error) {
+      console.error('Error loading blogs:', error);
+      toast.error('Connection failed. Please check if the server is running.');
+      setBlogs([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const generateSlug = (title) => {
@@ -36,24 +62,96 @@ const BlogManagement = () => {
       .trim('-');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const blogData = {
-      ...formData,
-      slug: formData.slug || generateSlug(formData.title),
-      tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-      excerpt: formData.excerpt || formData.content.substring(0, 150) + '...'
-    };
+    setLoading(true);
 
-    if (editingBlog) {
-      adminDataManager.update('blogs', editingBlog.id, blogData);
-    } else {
-      adminDataManager.create('blogs', blogData);
+    try {
+      const blogData = {
+        title: formData.title,
+        content: formData.content,
+        excerpt: formData.excerpt,
+        category: formData.category,
+        tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+        status: formData.status,
+        featured_image: formData.featuredImage,
+        meta_title: formData.title,
+        meta_description: formData.excerpt
+      };
+
+      const url = editingBlog
+        ? `${API_BASE_URL}/blogs/${editingBlog.id}`
+        : `${API_BASE_URL}/blogs`;
+
+      const method = editingBlog ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(blogData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(editingBlog ? 'Blog updated successfully!' : 'Blog created successfully!');
+        loadBlogs();
+        resetForm();
+        setShowModal(false);
+      } else {
+        toast.error(data.message || 'Failed to save blog');
+      }
+    } catch (error) {
+      console.error('Error saving blog:', error);
+      toast.error('Error saving blog');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    loadBlogs();
-    resetForm();
+  const handleEdit = (blog) => {
+    setEditingBlog(blog);
+    setFormData({
+      title: blog.title,
+      slug: blog.slug,
+      excerpt: blog.excerpt,
+      content: blog.content,
+      author: blog.author,
+      category: blog.category,
+      tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : blog.tags,
+      status: blog.status,
+      featuredImage: blog.featured_image || ''
+    });
+    setShowModal(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this blog?')) return;
+
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Blog deleted successfully!');
+        loadBlogs();
+      } else {
+        toast.error(data.message || 'Failed to delete blog');
+      }
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+      toast.error('Error deleting blog');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetForm = () => {
@@ -72,26 +170,11 @@ const BlogManagement = () => {
     setShowModal(false);
   };
 
-  const handleEdit = (blog) => {
-    setEditingBlog(blog);
+  const handleChange = (e) => {
     setFormData({
-      ...blog,
-      tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : blog.tags || ''
+      ...formData,
+      [e.target.name]: e.target.value
     });
-    setShowModal(true);
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this blog post?')) {
-      adminDataManager.delete('blogs', id);
-      loadBlogs();
-    }
-  };
-
-  const toggleStatus = (blog) => {
-    const newStatus = blog.status === 'published' ? 'draft' : 'published';
-    adminDataManager.update('blogs', blog.id, { status: newStatus });
-    loadBlogs();
   };
 
   return (
@@ -106,102 +189,125 @@ const BlogManagement = () => {
         </button>
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+          <span className="ml-2 text-gray-600 dark:text-gray-400">Loading blogs...</span>
+        </div>
+      )}
+
+      {/* Empty State */}
+      {!loading && blogs.length === 0 && (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-12 text-center">
+          <FiImage className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No blog posts</h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">Get started by creating your first blog post.</p>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 flex items-center gap-2 mx-auto"
+          >
+            <FiPlus /> Add Your First Post
+          </button>
+        </div>
+      )}
+
       {/* Blogs Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Title
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Category
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Author
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Created
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              {blogs.map((blog) => (
-                <tr key={blog.id}>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center">
-                      {blog.featuredImage && (
-                        <div className="flex-shrink-0 h-10 w-10 mr-3">
-                          <img
-                            className="h-10 w-10 rounded object-cover"
-                            src={blog.featuredImage}
-                            alt=""
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
-                          />
-                        </div>
-                      )}
-                      <div>
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
-                          {blog.title}
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {blog.excerpt}
+      {!loading && blogs.length > 0 && (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Author
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Created
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {blogs.map((blog) => (
+                  <tr key={blog.id}>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center">
+                        {blog.featured_image && (
+                          <div className="flex-shrink-0 h-10 w-10 mr-3">
+                            <img
+                              className="h-10 w-10 rounded object-cover"
+                              src={blog.featured_image}
+                              alt=""
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-white">
+                            {blog.title}
+                          </div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {blog.excerpt}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {blog.category}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {blog.author}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full cursor-pointer ${
-                        blog.status === 'published'
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      {blog.category}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      {blog.author}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${blog.status === 'published'
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                           : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                      }`}
-                      onClick={() => toggleStatus(blog)}
-                    >
-                      {blog.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {new Date(blog.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => handleEdit(blog)}
-                        className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400"
+                          }`}
                       >
-                        <FiEdit2 />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(blog.id)}
-                        className="text-red-600 hover:text-red-900 dark:text-red-400"
-                      >
-                        <FiTrash2 />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                        {blog.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      {new Date(blog.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleEdit(blog)}
+                          className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400"
+                        >
+                          <FiEdit2 />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(blog.id)}
+                          className="text-red-600 hover:text-red-900 dark:text-red-400"
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Modal */}
       {showModal && (
@@ -210,7 +316,7 @@ const BlogManagement = () => {
             <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
               {editingBlog ? 'Edit Blog Post' : 'Add New Blog Post'}
             </h2>
-            
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
@@ -220,8 +326,8 @@ const BlogManagement = () => {
                   <input
                     type="text"
                     value={formData.title}
-                    onChange={(e) => setFormData({ 
-                      ...formData, 
+                    onChange={(e) => setFormData({
+                      ...formData,
                       title: e.target.value,
                       slug: generateSlug(e.target.value)
                     })}
@@ -229,7 +335,7 @@ const BlogManagement = () => {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Slug
@@ -241,7 +347,7 @@ const BlogManagement = () => {
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Category
@@ -254,7 +360,7 @@ const BlogManagement = () => {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Author
@@ -267,7 +373,7 @@ const BlogManagement = () => {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Status
@@ -282,7 +388,7 @@ const BlogManagement = () => {
                   </select>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Featured Image URL
@@ -295,7 +401,7 @@ const BlogManagement = () => {
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Tags (comma separated)
@@ -308,7 +414,7 @@ const BlogManagement = () => {
                   placeholder="technology, web development, react"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Excerpt
@@ -321,7 +427,7 @@ const BlogManagement = () => {
                   placeholder="Brief description of the blog post..."
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Content
@@ -335,7 +441,7 @@ const BlogManagement = () => {
                   placeholder="Write your blog content here..."
                 />
               </div>
-              
+
               <div className="flex justify-end space-x-3 pt-4">
                 <button
                   type="button"

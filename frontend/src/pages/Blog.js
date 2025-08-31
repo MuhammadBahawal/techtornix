@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  FiCalendar, 
-  FiUser, 
+import {
+  FiCalendar,
+  FiUser,
   FiTag,
   FiArrowRight,
   FiSearch,
@@ -15,111 +15,221 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Real SEO-Friendly Blog Posts Data
+const demoBlogPosts = [
+  {
+    id: 1,
+    title: 'Complete Guide to React.js Development in 2024: Best Practices and Performance Optimization',
+    slug: 'complete-guide-react-development-2024',
+    excerpt: 'Master React.js development with our comprehensive guide covering hooks, performance optimization, state management, and modern best practices for building scalable web applications.',
+    content: 'React.js continues to dominate the frontend development landscape in 2024. This comprehensive guide covers everything from basic concepts to advanced optimization techniques...',
+    author: 'Muhammad Bahawal',
+    authorRole: 'Senior Full Stack Developer',
+    authorImage: '/images/team/bahawal.png',
+    category: 'Web Development',
+    tags: ['React.js', 'JavaScript', 'Frontend', 'Performance', 'Hooks'],
+    publishedAt: '2024-01-15',
+    readTime: '12 min read',
+    views: 2847,
+    featured: true,
+    image: '/images/blog/react-guide-2024.jpg',
+    metaDescription: 'Learn React.js development best practices, performance optimization, and modern techniques for building scalable web applications in 2024.',
+    keywords: ['React development', 'JavaScript frameworks', 'frontend optimization', 'React hooks', 'web development']
+  },
+  {
+    id: 2,
+    title: 'Node.js Microservices Architecture: Building Scalable Backend Systems',
+    slug: 'nodejs-microservices-architecture-guide',
+    excerpt: 'Learn how to design and implement microservices architecture using Node.js, Docker, and Kubernetes for building highly scalable and maintainable backend systems.',
+    content: 'Microservices architecture has revolutionized how we build and deploy backend systems. In this detailed guide, we explore Node.js microservices patterns...',
+    author: 'Sarah Ahmed',
+    authorRole: 'Backend Architect',
+    authorImage: '/images/team/sarah.jpg',
+    category: 'Backend Development',
+    tags: ['Node.js', 'Microservices', 'Docker', 'Kubernetes', 'API Design'],
+    publishedAt: '2024-01-10',
+    readTime: '15 min read',
+    views: 1923,
+    featured: true,
+    image: '/images/blog/nodejs-microservices.jpg',
+    metaDescription: 'Complete guide to building scalable microservices architecture with Node.js, Docker, and Kubernetes for enterprise applications.',
+    keywords: ['Node.js microservices', 'backend architecture', 'Docker containers', 'API development', 'scalable systems']
+  },
+  {
+    id: 3,
+    title: 'AI-Powered Web Development: Integrating Machine Learning APIs in Modern Applications',
+    slug: 'ai-powered-web-development-machine-learning',
+    excerpt: 'Discover how to integrate AI and machine learning capabilities into web applications using popular APIs, frameworks, and best practices for intelligent user experiences.',
+    content: 'Artificial Intelligence is transforming web development. This guide shows you how to integrate ML APIs, implement AI features, and create intelligent applications...',
+    author: 'Dr. Ali Hassan',
+    authorRole: 'AI/ML Engineer',
+    authorImage: '/images/team/ali.jpg',
+    category: 'Artificial Intelligence',
+    tags: ['AI', 'Machine Learning', 'APIs', 'Web Development', 'TensorFlow'],
+    publishedAt: '2024-01-08',
+    readTime: '18 min read',
+    views: 3156,
+    featured: true,
+    image: '/images/blog/ai-web-development.jpg',
+    metaDescription: 'Learn to integrate AI and machine learning APIs into web applications for intelligent user experiences and automated features.',
+    keywords: ['AI web development', 'machine learning APIs', 'intelligent applications', 'TensorFlow.js', 'AI integration']
+  },
+  {
+    id: 4,
+    title: 'Cybersecurity Best Practices for Web Applications: Protecting Against Modern Threats',
+    slug: 'cybersecurity-best-practices-web-applications',
+    excerpt: 'Essential cybersecurity practices every developer should implement to protect web applications from SQL injection, XSS attacks, and other security vulnerabilities.',
+    content: 'Web application security is more critical than ever. This comprehensive guide covers OWASP top 10 vulnerabilities, security headers, authentication...',
+    author: 'Fatima Khan',
+    authorRole: 'Cybersecurity Specialist',
+    authorImage: '/images/team/fatima.jpg',
+    category: 'Security',
+    tags: ['Cybersecurity', 'Web Security', 'OWASP', 'Authentication', 'Encryption'],
+    publishedAt: '2024-01-05',
+    readTime: '14 min read',
+    views: 2234,
+    featured: false,
+    image: '/images/blog/web-security.jpg',
+    metaDescription: 'Comprehensive guide to web application security best practices, OWASP guidelines, and protection against modern cyber threats.',
+    keywords: ['web security', 'cybersecurity practices', 'OWASP top 10', 'application security', 'threat protection']
+  },
+  {
+    id: 5,
+    title: 'Flutter vs React Native: Complete Mobile Development Framework Comparison 2024',
+    slug: 'flutter-vs-react-native-comparison-2024',
+    excerpt: 'Detailed comparison of Flutter and React Native for mobile app development, covering performance, development experience, and platform-specific considerations.',
+    content: 'Choosing the right mobile development framework is crucial for project success. This in-depth comparison analyzes Flutter vs React Native...',
+    author: 'Ahmed Malik',
+    authorRole: 'Mobile App Developer',
+    authorImage: '/images/team/ahmed.jpg',
+    category: 'Mobile Development',
+    tags: ['Flutter', 'React Native', 'Mobile Development', 'Cross-platform', 'Performance'],
+    publishedAt: '2024-01-03',
+    readTime: '16 min read',
+    views: 1876,
+    featured: false,
+    image: '/images/blog/flutter-vs-react-native.jpg',
+    metaDescription: 'Complete comparison of Flutter vs React Native for mobile app development in 2024, including performance benchmarks and use cases.',
+    keywords: ['Flutter vs React Native', 'mobile development', 'cross-platform apps', 'mobile frameworks', 'app development']
+  },
+  {
+    id: 6,
+    title: 'DevOps Automation: CI/CD Pipeline Implementation with GitHub Actions and AWS',
+    slug: 'devops-automation-cicd-github-actions-aws',
+    excerpt: 'Step-by-step guide to implementing automated CI/CD pipelines using GitHub Actions and AWS services for efficient software deployment and delivery.',
+    content: 'DevOps automation is essential for modern software development. Learn how to set up robust CI/CD pipelines using GitHub Actions and AWS...',
+    author: 'Omar Siddique',
+    authorRole: 'DevOps Engineer',
+    authorImage: '/images/team/omar.jpg',
+    category: 'DevOps',
+    tags: ['DevOps', 'CI/CD', 'GitHub Actions', 'AWS', 'Automation'],
+    publishedAt: '2024-01-01',
+    readTime: '20 min read',
+    views: 1654,
+    featured: false,
+    image: '/images/blog/devops-cicd.jpg',
+    metaDescription: 'Learn to implement automated CI/CD pipelines with GitHub Actions and AWS for efficient software deployment and continuous delivery.',
+    keywords: ['DevOps automation', 'CI/CD pipeline', 'GitHub Actions', 'AWS deployment', 'continuous integration']
+  },
+  {
+    id: 7,
+    title: 'Progressive Web Apps (PWA): Building App-Like Experiences for the Modern Web',
+    slug: 'progressive-web-apps-pwa-development-guide',
+    excerpt: 'Comprehensive guide to building Progressive Web Apps with service workers, offline functionality, and native app-like features for enhanced user experience.',
+    content: 'Progressive Web Apps represent the future of web development. This guide covers PWA fundamentals, service workers, caching strategies...',
+    author: 'Zainab Ali',
+    authorRole: 'Frontend Specialist',
+    authorImage: '/images/team/zainab.jpg',
+    category: 'Web Development',
+    tags: ['PWA', 'Service Workers', 'Offline-first', 'Web APIs', 'Performance'],
+    publishedAt: '2023-12-28',
+    readTime: '13 min read',
+    views: 2198,
+    featured: false,
+    image: '/images/blog/progressive-web-apps.jpg',
+    metaDescription: 'Complete guide to building Progressive Web Apps with offline functionality, service workers, and native app-like experiences.',
+    keywords: ['Progressive Web Apps', 'PWA development', 'service workers', 'offline functionality', 'web app manifest']
+  },
+  {
+    id: 8,
+    title: 'Database Optimization Techniques: MySQL Performance Tuning for High-Traffic Applications',
+    slug: 'database-optimization-mysql-performance-tuning',
+    excerpt: 'Advanced MySQL optimization techniques including indexing strategies, query optimization, and performance monitoring for high-traffic web applications.',
+    content: 'Database performance is critical for application success. This comprehensive guide covers MySQL optimization techniques, indexing strategies...',
+    author: 'Hassan Raza',
+    authorRole: 'Database Administrator',
+    authorImage: '/images/team/hassan.jpg',
+    category: 'Database',
+    tags: ['MySQL', 'Database Optimization', 'Performance', 'Indexing', 'Query Optimization'],
+    publishedAt: '2023-12-25',
+    readTime: '17 min read',
+    views: 1543,
+    featured: false,
+    image: '/images/blog/mysql-optimization.jpg',
+    metaDescription: 'Learn advanced MySQL optimization techniques, indexing strategies, and performance tuning for high-traffic applications.',
+    keywords: ['MySQL optimization', 'database performance', 'query optimization', 'database indexing', 'MySQL tuning']
+  },
+  {
+    id: 9,
+    title: 'Cloud Architecture Patterns: Designing Scalable Applications on AWS and Azure',
+    slug: 'cloud-architecture-patterns-aws-azure',
+    excerpt: 'Essential cloud architecture patterns and best practices for building scalable, resilient applications on AWS and Microsoft Azure platforms.',
+    content: 'Cloud architecture requires careful planning and design. This guide explores proven patterns for building scalable applications on major cloud platforms...',
+    author: 'Ayesha Tariq',
+    authorRole: 'Cloud Architect',
+    authorImage: '/images/team/ayesha.jpg',
+    category: 'Cloud Computing',
+    tags: ['Cloud Architecture', 'AWS', 'Azure', 'Scalability', 'Microservices'],
+    publishedAt: '2023-12-22',
+    readTime: '19 min read',
+    views: 1987,
+    featured: false,
+    image: '/images/blog/cloud-architecture.jpg',
+    metaDescription: 'Explore cloud architecture patterns and best practices for building scalable applications on AWS and Azure platforms.',
+    keywords: ['cloud architecture', 'AWS patterns', 'Azure architecture', 'scalable applications', 'cloud design patterns']
+  }
+];
+
 const Blog = () => {
   const sectionRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [blogPosts] = useState(demoBlogPosts);
+  const [loading] = useState(false);
 
-  const categories = [
-    { id: 'all', name: 'All Posts', count: 12 },
-    { id: 'technology', name: 'Technology', count: 5 },
-    { id: 'design', name: 'Design', count: 3 },
-    { id: 'business', name: 'Business', count: 2 },
-    { id: 'tutorials', name: 'Tutorials', count: 2 }
-  ];
+  // Generate categories from blog posts
+  const categories = React.useMemo(() => {
+    const categoryMap = new Map();
+    categoryMap.set('all', { id: 'all', name: 'All Posts', count: blogPosts.length });
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'The Future of Web Development: Trends to Watch in 2024',
-      slug: 'future-web-development-2024',
-      excerpt: 'Explore the latest trends shaping the future of web development, from AI integration to progressive web apps.',
-      content: 'Full blog content would go here...',
-      category: 'technology',
-      author: 'John Smith',
-      date: '2024-01-15',
-      readTime: '5 min read',
-      image: '/images/blog/web-dev-trends.jpg',
-      tags: ['Web Development', 'AI', 'PWA', 'Trends'],
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Creating Intuitive User Interfaces: A Designer\'s Guide',
-      slug: 'intuitive-user-interfaces-guide',
-      excerpt: 'Learn the principles and best practices for designing user interfaces that users love to interact with.',
-      content: 'Full blog content would go here...',
-      category: 'design',
-      author: 'Sarah Johnson',
-      date: '2024-01-10',
-      readTime: '7 min read',
-      image: '/images/blog/ui-design.jpg',
-      tags: ['UI/UX', 'Design', 'User Experience'],
-      featured: false
-    },
-    {
-      id: 3,
-      title: 'How AI is Transforming Business Operations',
-      slug: 'ai-transforming-business-operations',
-      excerpt: 'Discover how artificial intelligence is revolutionizing the way businesses operate and compete.',
-      content: 'Full blog content would go here...',
-      category: 'business',
-      author: 'Mike Chen',
-      date: '2024-01-05',
-      readTime: '6 min read',
-      image: '/images/blog/ai-business.jpg',
-      tags: ['AI', 'Business', 'Automation'],
-      featured: true
-    },
-    {
-      id: 4,
-      title: 'React Best Practices: Writing Clean and Maintainable Code',
-      slug: 'react-best-practices-clean-code',
-      excerpt: 'Master the art of writing clean, maintainable React code with these proven best practices.',
-      content: 'Full blog content would go here...',
-      category: 'tutorials',
-      author: 'Emily Davis',
-      date: '2024-01-01',
-      readTime: '10 min read',
-      image: '/images/blog/react-best-practices.jpg',
-      tags: ['React', 'JavaScript', 'Best Practices'],
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Mobile-First Design: Why It Matters More Than Ever',
-      slug: 'mobile-first-design-importance',
-      excerpt: 'Understanding the importance of mobile-first design in today\'s digital landscape.',
-      content: 'Full blog content would go here...',
-      category: 'design',
-      author: 'Alex Wilson',
-      date: '2023-12-28',
-      readTime: '4 min read',
-      image: '/images/blog/mobile-first.jpg',
-      tags: ['Mobile Design', 'Responsive', 'UX'],
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Building Scalable Node.js Applications',
-      slug: 'scalable-nodejs-applications',
-      excerpt: 'Learn how to build Node.js applications that can handle growth and scale effectively.',
-      content: 'Full blog content would go here...',
-      category: 'tutorials',
-      author: 'David Brown',
-      date: '2023-12-25',
-      readTime: '8 min read',
-      image: '/images/blog/nodejs-scalable.jpg',
-      tags: ['Node.js', 'Backend', 'Scalability'],
-      featured: false
-    }
-  ];
+    blogPosts.forEach(post => {
+      const cat = post.category.toLowerCase().replace(/\s+/g, '-');
+      if (categoryMap.has(cat)) {
+        categoryMap.get(cat).count++;
+      } else {
+        categoryMap.set(cat, {
+          id: cat,
+          name: post.category,
+          count: 1
+        });
+      }
+    });
+
+    return Array.from(categoryMap.values());
+  }, [blogPosts]);
+
+  const calculateReadTime = (content) => {
+    const wordsPerMinute = 200;
+    const words = content ? content.split(' ').length : 0;
+    const minutes = Math.ceil(words / wordsPerMinute);
+    return `${minutes} min read`;
+  };
 
   const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'all' || post.category.toLowerCase().replace(/\s+/g, '-') === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -182,7 +292,7 @@ const Blog = () => {
                 Our <span className="gradient-text">Blog</span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Stay updated with the latest technology trends, insights, and tutorials 
+                Stay updated with the latest technology trends, insights, and tutorials
                 from our team of experts.
               </p>
             </motion.div>
@@ -228,7 +338,7 @@ const Blog = () => {
                           <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
                             <div className="flex items-center space-x-1">
                               <FiCalendar className="w-4 h-4" />
-                              <span>{formatDate(post.date)}</span>
+                              <span>{formatDate(post.publishedAt)}</span>
                             </div>
                             <div className="flex items-center space-x-1">
                               <FiUser className="w-4 h-4" />
@@ -284,29 +394,22 @@ const Blog = () => {
                 />
               </div>
 
-              {/* Categories */}
-              <div className="flex flex-wrap items-center gap-3">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
-                      selectedCategory === category.id
-                        ? 'bg-primary-600 text-white shadow-lg'
-                        : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    <FiFilter className="w-4 h-4" />
-                    <span>{category.name}</span>
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      selectedCategory === category.id
-                        ? 'bg-white/20 text-white'
-                        : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
-                    }`}>
-                      {category.count}
-                    </span>
-                  </button>
-                ))}
+              {/* Category Dropdown */}
+              <div className="relative">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="appearance-none bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 pr-10 text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent min-w-[200px] cursor-pointer"
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name} ({category.count})
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                  <FiFilter className="w-4 h-4 text-gray-400" />
+                </div>
               </div>
             </div>
           </div>
@@ -369,7 +472,7 @@ const Blog = () => {
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <FiCalendar className="w-4 h-4" />
-                                  <span>{formatDate(post.date)}</span>
+                                  <span>{formatDate(post.publishedAt)}</span>
                                 </div>
                               </div>
 

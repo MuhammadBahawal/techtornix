@@ -243,49 +243,37 @@ const HeroSection = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden max-w-4xl w-full aspect-video shadow-2xl"
+              className="relative bg-white dark:bg-gray-900 rounded-xl overflow-hidden max-w-md w-full max-h-[60vh] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setShowVideoModal(false)}
-                className="absolute top-4 right-4 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-all duration-200"
+                className="absolute top-3 right-3 z-10 p-1.5 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-all duration-200"
               >
-                <FiX className="w-6 h-6" />
+                <FiX className="w-4 h-4" />
               </button>
 
               {/* Video Content */}
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-                <div className="text-center text-white p-8">
-                  <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FiPlay className="w-8 h-8 ml-1" />
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 p-4">
+                <div className="text-center text-white">
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <FiPlay className="w-5 h-5 ml-0.5" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">Demo Video</h3>
-                  <p className="text-gray-300 mb-6">
+                  <h3 className="text-lg font-bold mb-2">Our Story</h3>
+                  <p className="text-gray-300 mb-3 text-xs">
                     Watch how Techtornix transforms businesses with cutting-edge technology solutions.
                   </p>
 
                   {/* Placeholder for actual video */}
-                  <div className="bg-gray-800 rounded-lg p-8 border-2 border-dashed border-gray-600">
-                    <p className="text-gray-400">
+                  <div className="bg-gray-800 rounded-lg p-4 border-2 border-dashed border-gray-600">
+                    <p className="text-gray-400 text-xs">
                       Video player will be embedded here
                     </p>
-                    <p className="text-sm text-gray-500 mt-2">
+                    <p className="text-xs text-gray-500 mt-1">
                       Replace this with your actual video embed code
                     </p>
                   </div>
-
-                  {/* You can replace the above div with an actual video embed like: */}
-                  {/* 
-                  <iframe
-                    className="w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-                    title="Techtornix Demo"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                  */}
                 </div>
               </div>
             </motion.div>

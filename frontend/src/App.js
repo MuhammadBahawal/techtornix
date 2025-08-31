@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { Toaster } from 'react-hot-toast';
 
 // Layout Components
 import Navbar from './components/layout/Navbar';
@@ -27,8 +28,22 @@ import NotFound from './pages/NotFound';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 
+// Analytics
+import { initializeTracking, trackPageVisitDebounced } from './utils/analytics';
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Initialize visitor tracking on app load
+    initializeTracking();
+  }, []);
+
+  useEffect(() => {
+    // Track page changes
+    trackPageVisitDebounced(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     // Simulate loading time
@@ -57,13 +72,23 @@ function App() {
   }
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
         <div className="App min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+            }}
+          />
           <ScrollToTop />
-          
+
           <Navbar />
-          
+
           <main className="pt-16 md:pt-20">
             <AnimatePresence mode="wait">
               <Routes>
@@ -87,11 +112,11 @@ function App() {
               </Routes>
             </AnimatePresence>
           </main>
-          
+
           <Footer />
         </div>
-      </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
