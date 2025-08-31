@@ -72,28 +72,28 @@ const Home = () => {
         <SimpleHeroSection />
 
         {/* Services Section */}
-        <section className="reveal-section">
+        <section className="reveal-section w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ServicesSection />
         </section>
 
         {/* Companies Carousel */}
-        <section className="reveal-section py-12 bg-gray-50 dark:bg-gray-800">
+        <section className="reveal-section py-12 bg-gray-50 dark:bg-gray-800 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CompaniesCarousel />
         </section>
 
         {/* Testimonial Section - Trusted by Innovation Leaders */}
-        <section className="reveal-section">
+        <section className="reveal-section w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <TestimonialSection />
         </section>
 
         {/* Tech Stack Section */}
-        <section className="reveal-section section-padding" style={{ isolation: 'isolate' }}>
+        <section className="reveal-section section-padding p-0" style={{ isolation: 'isolate' }}>
           <TechStackSection />
         </section>
 
         {/* Success Story Section - Always visible */}
         <section 
-          className="reveal-section section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800"
+          className="reveal-section section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           style={{ 
             isolation: 'isolate',
             position: 'relative',
@@ -108,7 +108,7 @@ const Home = () => {
 
         {/* Featured Projects - Always visible */}
         <section 
-          className="reveal-section section-padding"
+          className="reveal-section section-padding w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           style={{ 
             isolation: 'isolate',
             position: 'relative',
@@ -123,7 +123,7 @@ const Home = () => {
 
         {/* Working Methodology - Always visible */}
         <section 
-          className="reveal-section section-padding bg-gray-50 dark:bg-gray-800"
+          className="reveal-section section-padding bg-gray-50 dark:bg-gray-800 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           style={{ 
             isolation: 'isolate',
             position: 'relative',
@@ -137,12 +137,12 @@ const Home = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="reveal-section section-padding">
+        <section className="reveal-section section-padding w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <TestimonialsSection />
         </section>
 
         {/* CTA Section */}
-        <section className="reveal-section">
+        <section className="reveal-section w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CTASection />
         </section>
       </motion.div>

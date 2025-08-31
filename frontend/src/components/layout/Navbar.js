@@ -296,12 +296,14 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 z-[99999] relative"
-              style={{ position: 'relative', zIndex: 99999 }}
+              className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 
+             hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 
+             flex items-center justify-center z-[99999]"
               aria-label="Toggle menu"
             >
               {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
             </button>
+
           </div>
         </div>
       </div>

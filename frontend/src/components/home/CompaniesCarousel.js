@@ -23,10 +23,10 @@ const CompaniesCarousel = () => {
 
     // Create infinite scroll animation
     const tl = gsap.timeline({ repeat: -1 });
-    
+
     tl.to(carousel, {
       x: `-${companies.length * 200}px`,
-      duration: companies.length * 2,
+      duration: companies.length * 4, // doubled the duration for slower speed
       ease: "none"
     });
 
@@ -34,7 +34,7 @@ const CompaniesCarousel = () => {
   }, [companies.length]);
 
   return (
-    <div className="container-custom">
+  <div className="container-custom">
       <div className="text-center mb-12">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
           Trusted by Industry Leaders

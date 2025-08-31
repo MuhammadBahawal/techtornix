@@ -46,7 +46,7 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
       <div className="bg-gradient-to-r from-primary-600 to-accent-600 py-12">
-        <div className="container-custom">
+  <div className="container-custom">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">Stay Updated with Our Newsletter</h3>
             <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
@@ -69,7 +69,7 @@ const Footer = () => {
 
       {/* Main Footer */}
       <div className="py-16">
-        <div className="container-custom">
+  <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-1">

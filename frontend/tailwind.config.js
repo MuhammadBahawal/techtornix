@@ -7,20 +7,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          primary: '#37b7c3',
-          secondary: '#071952',
-          50: '#f0fdff',
-          100: '#ccf7fe',
-          200: '#99effd',
-          300: '#60e2fa',
-          400: '#37b7c3',
-          500: '#1ca9ba',
-          600: '#1a8a9a',
-          700: '#1b6d7e',
-          800: '#1d5967',
-          900: '#1e4a56',
-        },
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
@@ -46,17 +32,17 @@ module.exports = {
           900: '#0f172a',
         },
         accent: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-        }
+          50: '#f0fdff',
+          100: '#ccf7fe',
+          200: '#99effd',
+          300: '#60e2fa',
+          400: '#37b7c3',
+          500: '#1ca9ba',
+          600: '#1a8a9a',
+          700: '#1b6d7e',
+          800: '#1d5967',
+          900: '#1e4a56',
+        },
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],

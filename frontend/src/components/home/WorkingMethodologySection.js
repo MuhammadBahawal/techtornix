@@ -23,35 +23,35 @@ const WorkingMethodologySection = () => {
       title: 'Plan',
       description: 'We start by understanding your vision, analyzing requirements, and creating a comprehensive project roadmap.',
       details: ['Requirements Analysis', 'Market Research', 'Technical Planning', 'Timeline Creation'],
-      color: 'from-yellow-500 to-orange-500'
+  color: 'bg-yellow-500'
     },
     {
       icon: FiPenTool,
       title: 'Design',
       description: 'Our design team creates intuitive and visually appealing interfaces that enhance user experience.',
       details: ['UI/UX Design', 'Wireframing', 'Prototyping', 'Design System'],
-      color: 'from-pink-500 to-purple-500'
+  color: 'bg-pink-500'
     },
     {
       icon: FiCode,
       title: 'Develop',
       description: 'We bring designs to life using cutting-edge technologies and best development practices.',
       details: ['Frontend Development', 'Backend Development', 'Database Design', 'API Integration'],
-      color: 'from-blue-500 to-cyan-500'
+  color: 'bg-blue-500'
     },
     {
       icon: FiTrendingUp,
       title: 'Deploy',
       description: 'We ensure smooth deployment with proper testing, optimization, and performance monitoring.',
       details: ['Quality Testing', 'Performance Optimization', 'Cloud Deployment', 'Go-Live Support'],
-      color: 'from-green-500 to-emerald-500'
+  color: 'bg-green-500'
     },
     {
       icon: FiHeadphones,
       title: 'Support',
       description: 'Our commitment continues with ongoing maintenance, updates, and technical support.',
       details: ['24/7 Monitoring', 'Regular Updates', 'Bug Fixes', 'Feature Enhancements'],
-      color: 'from-indigo-500 to-purple-500'
+  color: 'bg-indigo-500'
     }
   ];
 
@@ -104,7 +104,7 @@ const WorkingMethodologySection = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="container-custom"
+  className="container-custom"
       style={{ 
         isolation: 'isolate',
         position: 'relative',
@@ -150,7 +150,7 @@ const WorkingMethodologySection = () => {
                 {/* Content */}
                 <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'} text-center lg:text-left`}>
                   <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 group">
-                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl ${step.color} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     
@@ -168,7 +168,7 @@ const WorkingMethodologySection = () => {
                           key={idx}
                           className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400"
                         >
-                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${step.color}`}></div>
+                          <div className={`w-2 h-2 rounded-full ${step.color}`}></div>
                           <span>{detail}</span>
                         </div>
                       ))}
@@ -178,7 +178,7 @@ const WorkingMethodologySection = () => {
 
                 {/* Timeline dot */}
                 <div className="relative z-10 hidden lg:block">
-                  <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-xl`}>
+                  <div className={`w-20 h-20 rounded-full ${step.color} flex items-center justify-center shadow-xl`}>
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
                       <span className="text-lg font-bold text-gray-900">
                         {index + 1}
@@ -189,8 +189,8 @@ const WorkingMethodologySection = () => {
 
                 {/* Visual representation */}
                 <div className="flex-1 flex justify-center">
-                  <div className="w-64 h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
-                    <Icon className={`w-20 h-20 bg-gradient-to-br ${step.color} bg-clip-text text-transparent`} />
+                  <div className="w-64 h-48 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Icon className={`w-20 h-20 ${step.color} text-white`} />
                   </div>
                 </div>
               </motion.div>

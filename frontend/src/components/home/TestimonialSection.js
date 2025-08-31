@@ -136,8 +136,8 @@ const TestimonialSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20">
-      <div className="container-custom">
+    <section className="w-screen max-w-none bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" style={{ left: '50%', right: '50%', marginLeft: '-50vw', marginRight: '-50vw' }}>
+      <div className="container-custom mx-auto">
         {/* Stats Section */}
         <div ref={statsRef} className="mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
@@ -283,27 +283,16 @@ const TestimonialSection = () => {
               onClick={handleWatchStory}
             >
               {/* Video/Image Container */}
-              <div className="relative aspect-video bg-gradient-to-br from-[#2a2438] to-[#3a3448] rounded-2xl overflow-hidden">
-                {/* CEO Image Background */}
-                <div className="absolute inset-0">
-                  <img
-                    src="/images/team/bahawal.png"
-                    alt="Muhammad Bahawal - CEO"
-                    className="w-full h-full object-cover object-top"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  {/* Fallback background if image fails to load */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#2a2438] to-[#3a3448] hidden items-center justify-center">
-                    <div className="w-32 h-32 bg-gradient-to-br from-[#37b7c3] to-[#071952] rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                      MB
-                    </div>
-                  </div>
-                  <div className="absolute inset-0"
-                    style={{ background: 'linear-gradient(135deg, rgba(55, 183, 195, 0.6), rgba(7, 25, 82, 0.6))' }}></div>
-                </div>
+              <div className="relative aspect-video rounded-2xl overflow-hidden">
+                {/* CEO Image as Main Background */}
+                <img
+                  src="images/team/bahawal.png"
+                  alt="CEO"
+                  className="absolute inset-0 w-full h-full object-cover object-top z-0"
+                  style={{ filter: 'brightness(0.7) contrast(1.1)' }}
+                />
+                {/* Overlay for color effect - increased coverage and reduced opacity for better text visibility */}
+                <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(135deg, rgba(55, 183, 195, 0.35), rgba(7, 25, 82, 0.55))' }}></div>
 
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -338,8 +327,7 @@ const TestimonialSection = () => {
             </motion.div>
 
             {/* Stats overlay */}
-            <div className="
-  absolute -bottom-12 -left-2  /* mobile devices par right aur neecha */ sm:-bottom-8 sm:-left-8 lg:-bottom-6 lg:-left-6 bg-[#2a2438]/90 backdrop-blur-sm border border-[#4a4458]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 max-w-[200px] sm:max-w-[240px] lg:max-w-none">
+            <div className="absolute -bottom-12 -left-2  /* mobile devices par right aur neecha */ sm:-bottom-8 sm:-left-8 lg:-bottom-6 lg:-left-6 bg-[#2a2438]/90 backdrop-blur-sm border border-[#4a4458]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 max-w-[200px] sm:max-w-[240px] lg:max-w-none">
 
               <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
                 <div className="text-center">
@@ -350,7 +338,7 @@ const TestimonialSection = () => {
                 <div className="w-px h-6 sm:h-7 lg:h-8 bg-[#4a4458]"></div>
                 <div className="text-center">
                   <div className="text-lg sm:text-xl lg:text-2xl font-bold mb-1"
-                    style={{ color: '#071952' }}>500+</div>
+                    style={{ color: '#ffff' }}>500+</div>
                   <div className="text-[10px] sm:text-xs text-gray-400">Projects Done</div>
                 </div>
               </div>
