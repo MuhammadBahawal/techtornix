@@ -54,6 +54,10 @@ if ($_SERVER['REQUEST_URI'] === '/php-backend/' || $_SERVER['REQUEST_URI'] === '
             'settings' => [
                 'GET /api/settings' => 'Get all settings',
                 'PUT /api/settings' => 'Update settings (auth required)'
+            ],
+            'gemini' => [
+                'POST /api/gemini/chatbot' => 'Gemini chatbot endpoint',
+                'POST /api/gemini/admin' => 'Gemini admin endpoint'
             ]
         ]
     ]);
@@ -117,6 +121,26 @@ if (isset($pathParts[0]) && $pathParts[0] === 'api' && isset($pathParts[1])) {
             
         case 'settings':
             require_once 'api/settings/index.php';
+            break;
+            
+        case 'gemini':
+            if (isset($pathParts[2])) {
+                $action = $pathParts[2];
+                switch ($action) {
+                    case 'chatbot':
+                        require_once 'api/gemini/chatbot.php';
+                        break;
+                    case 'admin':
+                        require_once 'api/gemini/admin.php';
+                        break;
+                    default:
+                        http_response_code(404);
+                        echo json_encode(['success' => false, 'message' => 'Gemini endpoint not found']);
+                }
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Gemini action required']);
+            }
             break;
             
         default:

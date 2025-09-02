@@ -44,7 +44,7 @@ const CTASection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 overflow-hidden"
+  className="relative w-screen left-1/2 right-1/2 -mx-[50vw] py-20 overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #37b7c3 0%, #2a8a94 50%, #1d5f68 100%)'
       }}

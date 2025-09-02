@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/ui/ScrollToTop';
+import ChatbotWidget from './components/ChatbotWidget';
 
 // Pages
 import Home from './pages/Home';
@@ -114,6 +115,7 @@ function App() {
           </main>
 
           <Footer />
+          <ChatbotWidget />
         </div>
       </ThemeProvider>
     </AuthProvider>

@@ -1,0 +1,41 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://techtornix.com/sitemap.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow admin and private areas
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /.env
+Disallow: /config/
+Disallow: /node_modules/
+Disallow: /build/static/
+
+# Allow important directories
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Host directive
+Host: https://techtornix.com

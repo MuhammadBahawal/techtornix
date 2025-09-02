@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../../context/AuthContext';
 import RealTimeAnalytics from '../../components/admin/RealTimeAnalytics';
+import GeminiSettings from '../../components/admin/GeminiSettings';
 import JobManagement from './JobManagement';
 import ApplicationManagement from './ApplicationManagement';
 import BlogManagement from './BlogManagement';
@@ -30,7 +31,8 @@ import {
   FiEdit3,
   FiTrash2,
   FiDownload,
-  FiActivity
+  FiActivity,
+  FiCpu
 } from 'react-icons/fi';
 
 const AdminDashboard = () => {
@@ -54,6 +56,7 @@ const AdminDashboard = () => {
     { path: '/admin/contacts', icon: FiMail, label: 'Contact Messages' },
     { path: '/admin/team', icon: FiUsers, label: 'Team' },
     { path: '/admin/clients', icon: FiBriefcase, label: 'Clients' },
+    { path: '/admin/gemini', icon: FiCpu, label: 'Gemini AI' },
     { path: '/admin/settings', icon: FiSettings, label: 'Settings' }
   ];
 
@@ -174,8 +177,8 @@ const AdminDashboard = () => {
                   <Link
                     to={item.path}
                     className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 ${location.pathname === item.path
-                        ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                       }`}
                     onClick={() => setSidebarOpen(false)}
                   >
@@ -235,6 +238,7 @@ const AdminDashboard = () => {
                 <Route path="/contacts" element={<ContactManagement />} />
                 <Route path="/team" element={<TeamManagement />} />
                 <Route path="/clients" element={<ClientManagement />} />
+                <Route path="/gemini" element={<GeminiSettings />} />
                 <Route path="/settings" element={<GeneralSettings />} />
               </Routes>
             </AnimatePresence>
