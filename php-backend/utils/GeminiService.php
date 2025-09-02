@@ -282,7 +282,7 @@ class GeminiService {
         }
         
         if (strpos($msg, 'team') !== false || strpos($msg, 'who') !== false || strpos($msg, 'founder') !== false || strpos($msg, 'owner') !== false) {
-            return "TechTornix was founded by Muhammad Bahawal (CEO), who leads our talented team including Naveed Sarwar, Aroma Tariq (COO), and Umair Arshad (CTO). We have a passionate team of developers, designers, and technology experts committed to excellence! 👥";
+            return "TechTornix was founded by Muhammad Bahawal (CEO), who leads our talented team including Muhammad Bahawa, Tanzela Farooq (COO), and Muhammad Adeel (CTO). We have a passionate team of developers, designers, and technology experts committed to excellence! 👥";
         }
         
         if (strpos($msg, 'contact') !== false || strpos($msg, 'reach') !== false || strpos($msg, 'email') !== false) {
@@ -297,7 +297,7 @@ class GeminiService {
 
 COMPANY INFORMATION:
 - Company: TechTornix
-- Leadership: Muhammad Bahawal (CEO & Founder), Naveed Sarwar, Aroma Tariq (COO), Umair Arshad (CTO)
+- Leadership: Muhammad Bahawal (CEO & Founder), Muhammad Bahawa, Tanzela Farooq (COO), Muhammad Adeel (CTO)
 - Services: Custom software development, web applications, mobile apps, cloud solutions, AI integration, digital consulting
 - Technologies: React, Node.js, Python, JavaScript, TypeScript, AI/ML, AWS, Azure, Google Cloud
 - Contact: bahawal.dev@gmail.com, techtornix.com

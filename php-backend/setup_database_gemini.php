@@ -70,7 +70,7 @@ try {
 
 COMPANY INFORMATION:
 - Company: TechTornix
-- Leadership: Muhammad Bahawal (CEO & Founder), Naveed Sarwar, Aroma Tariq (COO), Umair Arshad (CTO)
+- Leadership: Muhammad Bahawal (CEO & Founder), Muhammad Bahawal (COO), Tanzela Farooq (COO), Muhammad Adeel (CTO)
 - Services: Custom software development, web applications, mobile apps, cloud solutions, AI integration, digital consulting
 - Technologies: React, Node.js, Python, JavaScript, TypeScript, AI/ML, AWS, Azure, Google Cloud
 - Contact: bahawal.dev@gmail.com, techtornix.com
