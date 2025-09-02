@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: https://techtornix.com');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 header('Access-Control-Allow-Credentials: true');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Basic health check endpoint
-if ($_SERVER['REQUEST_URI'] === '/php-backend/' || $_SERVER['REQUEST_URI'] === '/php-backend/index.php') {
+if ($_SERVER['REQUEST_URI'] === '/php-backend/' || $_SERVER['REQUEST_URI'] === '/php-backend/index.php' || $_SERVER['REQUEST_URI'] === '/') {
     echo json_encode([
         'success' => true,
         'message' => 'Techtornix PHP Backend API',
@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_URI'] === '/php-backend/' || $_SERVER['REQUEST_URI'] === '
             ],
             'gemini' => [
                 'POST /api/gemini/chatbot' => 'Gemini chatbot endpoint',
-                'POST /api/gemini/admin' => 'Gemini admin endpoint'
+                'GET /api/gemini/admin' => 'Gemini admin status',
+                'POST /api/gemini/admin' => 'Gemini admin operations'
             ]
         ]
     ]);

@@ -11,6 +11,7 @@ class GeminiService {
         } else {
             $this->initializeDatabase();
         }
+        $this->loadApiKey();
         $this->loadConfiguration();
     }
     
@@ -24,18 +25,45 @@ class GeminiService {
         );
     }
     
-    private function loadConfiguration() {
+    private function loadApiKey() {
         try {
-            // Get API key from settings table
+            // Try to get API key from settings table
             $stmt = $this->db->prepare("SELECT setting_value FROM settings WHERE setting_key = 'gemini_api_key' AND category = 'gemini'");
             $stmt->execute();
-            $this->apiKey = $stmt->fetchColumn();
+            $apiKey = $stmt->fetchColumn();
             
-            // Fallback API key if not found in database
-            if (!$this->apiKey) {
-                $this->apiKey = 'AIzaSyCxfquUmnwGe9o9vItJQ_59jn5YgLcpvT0';
+            error_log("GeminiService::loadApiKey() - API key from settings: " . ($apiKey ? substr($apiKey, 0, 10) . '...' : 'null'));
+            
+            if ($apiKey) {
+                $this->apiKey = $apiKey;
+                return;
             }
             
+            // Fallback: Try gemini_configs table
+            $stmt = $this->db->prepare("SELECT api_key FROM gemini_configs WHERE id = 1");
+            $stmt->execute();
+            $fallbackKey = $stmt->fetchColumn();
+            
+            error_log("GeminiService::loadApiKey() - Fallback key from gemini_configs: " . ($fallbackKey ? substr($fallbackKey, 0, 10) . '...' : 'null'));
+            
+            if ($fallbackKey) {
+                $this->apiKey = $fallbackKey;
+                return;
+            }
+            
+            // Final fallback: Use hardcoded key for testing
+            $this->apiKey = 'AIzaSyCxfquOvHGJlRDrLQpUZoGHpOKNMhKrKdU';
+            error_log("GeminiService::loadApiKey() - Using hardcoded fallback key");
+            
+        } catch (Exception $e) {
+            error_log("Failed to load API key: " . $e->getMessage());
+            // Use hardcoded fallback
+            $this->apiKey = 'AIzaSyCxfquOvHGJlRDrLQpUZoGHpOKNMhKrKdU';
+        }
+    }
+    
+    private function loadConfiguration() {
+        try {
             // Get active configuration from gemini_configs table
             $stmt = $this->db->prepare("SELECT * FROM gemini_configs WHERE is_active = 1 ORDER BY id DESC LIMIT 1");
             $stmt->execute();
@@ -56,7 +84,6 @@ class GeminiService {
         } catch (Exception $e) {
             error_log("Failed to load Gemini configuration: " . $e->getMessage());
             // Set fallback configuration
-            $this->apiKey = 'AIzaSyCxfquUmnwGe9o9vItJQ_59jn5YgLcpvT0';
             $this->config = [
                 'model_name' => 'gemini-pro',
                 'temperature' => 0.7,
@@ -302,18 +329,26 @@ Remember: You represent TechTornix, so always showcase our expertise and encoura
         return $this->config;
     }
     
-    public function updateApiKey($newApiKey) {
+    public function updateApiKey($newKey) {
         try {
+            error_log("GeminiService::updateApiKey() - Updating API key: " . substr($newKey, 0, 10) . '...');
+            
             $stmt = $this->db->prepare("
-                INSERT INTO settings (setting_key, setting_value, setting_type, description, category) 
-                VALUES ('gemini_api_key', ?, 'text', 'Gemini API Key', 'gemini') 
+                INSERT INTO settings (setting_key, setting_value, setting_type, description, category, created_at, updated_at) 
+                VALUES ('gemini_api_key', ?, 'text', 'Google Gemini API Key', 'gemini', NOW(), NOW()) 
                 ON DUPLICATE KEY UPDATE 
                 setting_value = VALUES(setting_value),
-                updated_at = CURRENT_TIMESTAMP
+                updated_at = NOW()
             ");
-            $stmt->execute([$newApiKey]);
-            $this->apiKey = $newApiKey;
-            return true;
+            $result = $stmt->execute([$newKey]);
+            
+            if ($result) {
+                $this->apiKey = $newKey;
+                error_log("GeminiService::updateApiKey() - API key updated successfully");
+                return true;
+            }
+            
+            return false;
         } catch (Exception $e) {
             error_log("Failed to update API key: " . $e->getMessage());
             return false;

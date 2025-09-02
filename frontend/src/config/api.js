@@ -88,6 +88,13 @@ export const API_ENDPOINTS = {
   SETTINGS: '/settings',
   SETTINGS_UPDATE: '/settings',
 
+  // Gemini AI endpoints
+  GEMINI_CHATBOT: '/gemini/chatbot',
+  GEMINI_ADMIN: '/gemini/admin',
+  GEMINI_STATUS: '/gemini/admin?action=status',
+  GEMINI_LOGS: '/gemini/admin?action=logs',
+  GEMINI_CONFIG: '/gemini/admin?action=config',
+
   // Legacy endpoints for backward compatibility
   SERVICES_LIST: '/products',
   SERVICE_BY_SLUG: (slug) => `/products/${slug}`,

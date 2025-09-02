@@ -1,12 +1,16 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: https://techtornix.com');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
+
+// Add error logging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once '../../config/database.php';
 require_once '../../utils/GeminiService.php';
@@ -15,6 +19,9 @@ try {
     $geminiService = new GeminiService();
     $method = $_SERVER['REQUEST_METHOD'];
     $action = $_GET['action'] ?? null;
+    
+    // Log the request for debugging
+    error_log("Gemini Admin Request: Method=$method, Action=$action");
     
     if ($method === 'GET') {
         switch ($action) {
@@ -44,10 +51,10 @@ try {
                         'status' => $apiKey ? 'configured' : 'using_fallback',
                         'config' => [
                             'model_name' => $config['model_name'] ?? 'gemini-pro',
-                            'temperature' => $config['temperature'] ?? 0.7,
-                            'top_k' => $config['top_k'] ?? 40,
-                            'top_p' => $config['top_p'] ?? 0.95,
-                            'max_output_tokens' => $config['max_output_tokens'] ?? 1024,
+                            'temperature' => (float)($config['temperature'] ?? 0.7),
+                            'top_k' => (int)($config['top_k'] ?? 40),
+                            'top_p' => (float)($config['top_p'] ?? 0.95),
+                            'max_output_tokens' => (int)($config['max_output_tokens'] ?? 1024),
                             'system_prompt' => $config['system_prompt'] ?? ''
                         ]
                     ]
@@ -76,11 +83,13 @@ try {
                 break;
                 
             default:
-                throw new Exception('Invalid action');
+                throw new Exception('Invalid action: ' . $action);
         }
     } elseif ($method === 'POST') {
         $input = json_decode(file_get_contents('php://input'), true);
         $action = $input['action'] ?? null;
+        
+        error_log("Gemini Admin POST: Action=$action, Input=" . json_encode($input));
         
         switch ($action) {
             case 'update_key':
@@ -89,6 +98,8 @@ try {
                     throw new Exception('API key is required');
                 }
                 
+                error_log("Admin API - update_key: " . substr($apiKey, 0, 10) . '...');
+                
                 $success = $geminiService->updateApiKey($apiKey);
                 if ($success) {
                     echo json_encode([
@@ -96,13 +107,19 @@ try {
                         'message' => 'API key updated successfully'
                     ]);
                 } else {
-                    throw new Exception('Failed to update API key');
+                    throw new Exception('Failed to update API key in database');
                 }
                 break;
                 
             case 'test_key':
                 $apiKey = $input['api_key'] ?? null;
+                
+                error_log("Admin API - test_key: " . ($apiKey ? substr($apiKey, 0, 10) . '...' : 'using current key'));
+                
                 $result = $geminiService->testApiKey($apiKey);
+                
+                error_log("Admin API - test_key result: " . json_encode($result));
+                
                 echo json_encode($result);
                 break;
                 
@@ -168,17 +185,23 @@ try {
                 break;
                 
             default:
-                throw new Exception('Invalid action');
+                throw new Exception('Invalid action: ' . $action);
         }
     } else {
-        throw new Exception('Method not allowed');
+        throw new Exception('Method not allowed: ' . $method);
     }
     
 } catch (Exception $e) {
+    error_log("Gemini Admin Error: " . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => $e->getMessage()
+        'error' => $e->getMessage(),
+        'debug' => [
+            'method' => $_SERVER['REQUEST_METHOD'],
+            'action' => $_GET['action'] ?? 'none',
+            'input' => file_get_contents('php://input')
+        ]
     ]);
 }
 ?>
