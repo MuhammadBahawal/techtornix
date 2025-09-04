@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  FiArrowLeft, 
-  FiArrowRight, 
-  FiCheck, 
-  FiStar, 
-  FiUsers, 
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiCheck,
+  FiStar,
+  FiUsers,
   FiClock,
   FiTrendingUp,
   FiShield
@@ -32,7 +32,7 @@ const ServiceDetail = () => {
         longDescription: 'Our website development service combines cutting-edge technology with creative design to deliver web solutions that drive business growth. We specialize in creating responsive, fast-loading, and SEO-optimized websites that provide exceptional user experiences across all devices.',
         features: [
           'Responsive Design',
-          'SEO Optimization', 
+          'SEO Optimization',
           'Performance Optimization',
           'CMS Integration',
           'E-commerce Solutions',
@@ -43,7 +43,6 @@ const ServiceDetail = () => {
         technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'PostgreSQL', 'AWS'],
         clientsServed: 150,
         averageRating: 4.9,
-        startingPrice: 2999,
         deliveryTime: '4-8 weeks',
       },
       'ios-development': {
@@ -64,7 +63,6 @@ const ServiceDetail = () => {
         technologies: ['Swift', 'SwiftUI', 'UIKit', 'Core Data', 'Firebase', 'TestFlight'],
         clientsServed: 85,
         averageRating: 4.8,
-        startingPrice: 4999,
         deliveryTime: '6-10 weeks',
       },
       'android-development': {
@@ -85,7 +83,6 @@ const ServiceDetail = () => {
         technologies: ['Kotlin', 'Java', 'Android Studio', 'Firebase', 'Room', 'Retrofit'],
         clientsServed: 92,
         averageRating: 4.7,
-        startingPrice: 4499,
         deliveryTime: '6-10 weeks',
       },
       'saas-products': {
@@ -106,7 +103,6 @@ const ServiceDetail = () => {
         technologies: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'AWS', 'Stripe'],
         clientsServed: 45,
         averageRating: 4.9,
-        startingPrice: 9999,
         deliveryTime: '12-16 weeks',
       },
       'ai-solutions': {
@@ -127,7 +123,6 @@ const ServiceDetail = () => {
         technologies: ['Python', 'TensorFlow', 'PyTorch', 'OpenAI', 'AWS SageMaker', 'Docker'],
         clientsServed: 28,
         averageRating: 4.8,
-        startingPrice: 7999,
         deliveryTime: '8-12 weeks',
       },
       'uiux-design': {
@@ -148,7 +143,6 @@ const ServiceDetail = () => {
         technologies: ['Figma', 'Adobe XD', 'Sketch', 'InVision', 'Principle', 'Framer'],
         clientsServed: 120,
         averageRating: 4.9,
-        startingPrice: 3499,
         deliveryTime: '4-6 weeks',
       },
       'digital-marketing': {
@@ -169,7 +163,6 @@ const ServiceDetail = () => {
         technologies: ['Google Analytics', 'Google Ads', 'Facebook Ads', 'SEMrush', 'Mailchimp', 'HubSpot'],
         clientsServed: 200,
         averageRating: 4.7,
-        startingPrice: 1999,
         deliveryTime: '2-4 weeks',
       },
       'iot-solutions': {
@@ -190,7 +183,6 @@ const ServiceDetail = () => {
         technologies: ['Arduino', 'Raspberry Pi', 'AWS IoT', 'MQTT', 'Node.js', 'React Native'],
         clientsServed: 35,
         averageRating: 4.6,
-        startingPrice: 6999,
         deliveryTime: '8-12 weeks',
       }
     };
@@ -247,7 +239,6 @@ const ServiceDetail = () => {
     packages: [
       {
         name: 'Starter',
-        price: service.startingPrice,
         description: 'Perfect for small businesses and startups',
         features: [
           'Basic implementation',
@@ -258,7 +249,6 @@ const ServiceDetail = () => {
       },
       {
         name: 'Professional',
-        price: Math.round(service.startingPrice * 1.8),
         description: 'Ideal for growing businesses',
         features: [
           'Advanced features',
@@ -271,7 +261,6 @@ const ServiceDetail = () => {
       },
       {
         name: 'Enterprise',
-        price: Math.round(service.startingPrice * 3.2),
         description: 'For large organizations',
         features: [
           'Full customization',
@@ -350,7 +339,7 @@ const ServiceDetail = () => {
                 <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
                   {fullService.longDescription}
                 </p>
-                
+
                 <div className="flex flex-wrap items-center gap-6 mb-8">
                   <div className="flex items-center space-x-2">
                     <FiStar className="w-5 h-5 text-yellow-400 fill-current" />
@@ -394,13 +383,10 @@ const ServiceDetail = () => {
               >
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                    Starting from
+                    Get a Custom Quote
                   </h3>
-                  <div className="text-4xl font-bold gradient-text mb-4">
-                    ${fullService.startingPrice.toLocaleString()}
-                  </div>
                   <p className="text-gray-600 dark:text-gray-400 mb-6">
-                    Get a custom quote based on your specific requirements
+                    Let's discuss your requirements and create something amazing together.
                   </p>
                   <Link to="/contact" className="w-full btn-primary">
                     Request Quote
@@ -419,11 +405,10 @@ const ServiceDetail = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
-                    activeTab === tab.id
+                  className={`py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${activeTab === tab.id
                       ? 'border-primary-600 text-primary-600 dark:text-primary-400'
                       : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -453,7 +438,7 @@ const ServiceDetail = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div>
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                       Technologies We Use
@@ -468,7 +453,7 @@ const ServiceDetail = () => {
                         </span>
                       ))}
                     </div>
-                    
+
                     <div className="mt-8 grid grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <FiTrendingUp className="w-8 h-8 text-primary-600 mx-auto mb-2" />
@@ -530,11 +515,10 @@ const ServiceDetail = () => {
                   {fullService.packages.map((pkg, index) => (
                     <div
                       key={pkg.name}
-                      className={`relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
-                        pkg.popular
+                      className={`relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${pkg.popular
                           ? 'border-primary-600 scale-105'
                           : 'border-gray-200 dark:border-gray-700 hover:border-primary-300'
-                      }`}
+                        }`}
                     >
                       {pkg.popular && (
                         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -543,7 +527,7 @@ const ServiceDetail = () => {
                           </span>
                         </div>
                       )}
-                      
+
                       <div className="text-center mb-8">
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                           {pkg.name}
@@ -551,9 +535,6 @@ const ServiceDetail = () => {
                         <p className="text-gray-600 dark:text-gray-400 mb-4">
                           {pkg.description}
                         </p>
-                        <div className="text-4xl font-bold gradient-text">
-                          ${pkg.price.toLocaleString()}
-                        </div>
                       </div>
 
                       <ul className="space-y-3 mb-8">
@@ -567,9 +548,8 @@ const ServiceDetail = () => {
 
                       <Link
                         to="/contact"
-                        className={`w-full btn ${
-                          pkg.popular ? 'btn-primary' : 'btn-outline'
-                        }`}
+                        className={`w-full btn ${pkg.popular ? 'btn-primary' : 'btn-outline'
+                          }`}
                       >
                         Get Started
                       </Link>

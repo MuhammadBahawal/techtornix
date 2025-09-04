@@ -16,49 +16,49 @@ const OrbitalTeamShowcase = ({ teamData = [] }) => {
       id: 1,
       name: "Muhammad Bahawal",
       role: "CEO Techtornix Solutions",
-      image: "/images/team/CEO.jpg",
+      image: "/images/team/bahawal.png",
       isCEO: true
     },
     {
       id: 2,
-      name: "Tanzila Farooq",
+      name: "Tanzeela Farooq",
       role: "Co-Founder",
-      image: "/images/team/tanzila-farooq.jpg",
+      image: "/images/team/tanzeela.jpg",
       isCEO: false
     },
     {
       id: 3,
-      name: "Sarah Johnson",
+      name: "Muhammad Adeel",
       role: "CTO Techtornix Solutions",
-      image: "/images/team/sarah-johnson.jpg",
+      image: "/images/team/adeel.jpg",
       isCEO: false
     },
     {
       id: 4,
-      name: "Mike Chen",
-      role: "Lead Designer",
-      image: "/images/team/mike-chen.jpg",
+      name: "Muhammad Jamshaid",
+      role: "Mern Stack Developer",
+      image: "/images/team/mj.jpeg",
       isCEO: false
     },
     {
       id: 5,
-      name: "Emily Davis",
-      role: "Project Manager",
-      image: "/images/team/emily-davis.jpg",
+      name: "Muhammad Awais Mubeen",
+      role: "IOS Developer",
+      image: "/images/team/mawais.png",
       isCEO: false
     },
     {
       id: 6,
-      name: "Alex Rodriguez",
-      role: "Full-Stack Developer",
-      image: "/images/team/alex-rodriguez.jpg",
+      name: "Muhammad Bilal",
+      role: "Lead Designer",
+      image: "/images/team/bilal.jpg",
       isCEO: false
     },
     {
       id: 7,
-      name: "Lisa Wang",
-      role: "Mobile Developer",
-      image: "/images/team/lisa-wang.jpg",
+      name: "Muhammad Iqbal",
+      role: "Web Developer",
+      image: "/images/team/Iqbal.png",
       isCEO: false
     }
   ];

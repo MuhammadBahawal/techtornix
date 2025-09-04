@@ -66,41 +66,35 @@ const Home = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="min-h-screen overflow-x-hidden"
+        className="min-h-screen"
       >
         {/* Hero Section */}
         <SimpleHeroSection />
 
         {/* Services Section */}
-        <section className="reveal-section w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto">
-            <ServicesSection />
-          </div>
+        <section className="reveal-section">
+          <ServicesSection />
         </section>
 
         {/* Companies Carousel */}
-        <section className="reveal-section py-8 sm:py-12 lg:py-16 bg-gray-50 dark:bg-gray-800 w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <CompaniesCarousel />
-          </div>
+        <section className="reveal-section py-12 bg-gray-50 dark:bg-gray-800">
+          <CompaniesCarousel />
         </section>
 
         {/* Testimonial Section - Trusted by Innovation Leaders */}
-        <section className="reveal-section w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto">
-            <TestimonialSection />
-          </div>
+        <section className="reveal-section">
+          <TestimonialSection />
         </section>
 
         {/* Tech Stack Section */}
-        <section className="reveal-section py-8 sm:py-12 lg:py-16" style={{ isolation: 'isolate' }}>
+        <section className="reveal-section section-padding" style={{ isolation: 'isolate' }}>
           <TechStackSection />
         </section>
 
         {/* Success Story Section - Always visible */}
-        <section
-          className="reveal-section py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800 w-full"
-          style={{
+        <section 
+          className="reveal-section section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800"
+          style={{ 
             isolation: 'isolate',
             position: 'relative',
             zIndex: 1,
@@ -109,15 +103,13 @@ const Home = () => {
             opacity: '1 !important'
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SuccessStorySection />
-          </div>
+          <SuccessStorySection />
         </section>
 
         {/* Featured Projects - Always visible */}
-        <section
-          className="reveal-section py-8 sm:py-12 lg:py-16 w-full"
-          style={{
+        <section 
+          className="reveal-section section-padding"
+          style={{ 
             isolation: 'isolate',
             position: 'relative',
             zIndex: 1,
@@ -126,15 +118,13 @@ const Home = () => {
             opacity: '1 !important'
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FeaturedProjects />
-          </div>
+          <FeaturedProjects />
         </section>
 
         {/* Working Methodology - Always visible */}
-        <section
-          className="reveal-section py-8 sm:py-12 lg:py-16 bg-gray-50 dark:bg-gray-800 w-full"
-          style={{
+        <section 
+          className="reveal-section section-padding bg-gray-50 dark:bg-gray-800"
+          style={{ 
             isolation: 'isolate',
             position: 'relative',
             zIndex: 1,
@@ -143,23 +133,17 @@ const Home = () => {
             opacity: '1 !important'
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <WorkingMethodologySection />
-          </div>
+          <WorkingMethodologySection />
         </section>
 
         {/* Testimonials */}
-        <section className="reveal-section py-8 sm:py-12 lg:py-16 w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <TestimonialsSection />
-          </div>
+        <section className="reveal-section section-padding">
+          <TestimonialsSection />
         </section>
 
         {/* CTA Section */}
-        <section className="reveal-section w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto">
-            <CTASection />
-          </div>
+        <section className="reveal-section">
+          <CTASection />
         </section>
       </motion.div>
     </>

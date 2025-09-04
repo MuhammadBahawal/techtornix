@@ -15,44 +15,40 @@ import {
   FiTrendingUp
 } from 'react-icons/fi';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Demo Portfolio Projects Data
+// Portfolio Projects Data with public image paths and consistent technologies
 const portfolioProjects = [
   {
     id: 1,
-    title: 'E-Commerce Platform - TechMart',
+    title: 'TeqTronics Solutions',
     category: 'Web Development',
-    description: 'A comprehensive e-commerce solution built with React and Node.js, featuring advanced inventory management, payment processing, and real-time analytics dashboard.',
-    image: '/images/projects/ecommerce.jpg',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'Socket.io'],
-    client: 'TechMart Inc.',
+    description: 'TeqTronics Solutions is a global software house delivering cutting-edge web, mobile, and AI-powered solutions with a focus on innovation and scalability.',
+    image: '/images/teqtronics.png',
+    technologies: ['React', 'Node.js', 'MongoDB'], // Added technologies
     duration: '4 months',
     teamSize: 5,
-    projectUrl: 'https://techmart-demo.com',
-    githubUrl: 'https://github.com/techtornix/techmart',
+    projectUrl: 'https://www.teqtronics.com/',
+    githubUrl: 'https://github.com/muhammadbahawal',
     featured: true
   },
   {
     id: 2,
-    title: 'AI-Powered Healthcare App',
-    category: 'Mobile App',
-    description: 'Mobile application with AI-driven symptom checker, appointment booking, and telemedicine features for improved healthcare accessibility.',
-    image: '/images/projects/healthcare.jpg',
-    technologies: ['React Native', 'Python', 'TensorFlow', 'Firebase', 'WebRTC'],
-    client: 'HealthTech Solutions',
-    duration: '6 months',
-    teamSize: 6,
-    projectUrl: 'https://healthapp-demo.com',
-    githubUrl: 'https://github.com/techtornix/healthapp',
+    title: 'LIDS Group Of College',
+    category: 'Web Development',
+    description: 'Developed a modern and responsive website for LIDS Group of Colleges, showcasing their academic excellence and student-focused approach.',
+    image: '/images/lidsCollege.png',
+    technologies: ['HTML', 'CSS', 'JavaScript'], // Added technologies
+    duration: '4 months',
+    teamSize: 5,
+    projectUrl: 'https://www.lidc.com.pk/',
+    githubUrl: 'https://github.com/techtornix/techmart',
     featured: true
   },
   {
     id: 3,
     title: 'Smart Finance Dashboard',
-    category: 'SaaS',
+    category: 'Education',
     description: 'Comprehensive financial management platform with real-time analytics, automated reporting, and AI-powered insights for businesses.',
-    image: '/images/projects/finance.jpg',
+    image: '/images/techhub.png',
     technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Chart.js', 'AWS'],
     client: 'FinanceFlow Corp',
     duration: '5 months',
@@ -66,7 +62,7 @@ const portfolioProjects = [
     title: 'Real Estate Management System',
     category: 'Web Development',
     description: 'Complete property management solution with virtual tours, CRM integration, and automated marketing tools for real estate agencies.',
-    image: '/images/projects/realestate.jpg',
+    image: '/images/teqtronics.png',
     technologies: ['Angular', 'Laravel', 'MySQL', 'Three.js', 'Google Maps API'],
     client: 'PropertyPro Agency',
     duration: '3 months',
@@ -80,7 +76,7 @@ const portfolioProjects = [
     title: 'Educational Learning Platform',
     category: 'E-Learning',
     description: 'Interactive online learning platform with video streaming, progress tracking, and gamification elements for enhanced student engagement.',
-    image: '/images/projects/education.jpg',
+    image: '/images/cravycrunch.png',
     technologies: ['React', 'Express.js', 'MongoDB', 'WebRTC', 'AWS S3'],
     client: 'EduTech Academy',
     duration: '4 months',
@@ -94,7 +90,7 @@ const portfolioProjects = [
     title: 'Social Media Analytics Tool',
     category: 'AI/ML',
     description: 'Advanced social media monitoring and analytics platform with sentiment analysis, trend prediction, and automated reporting.',
-    image: '/images/projects/social.jpg',
+    image: '/images/tribe.png',
     technologies: ['Python', 'Django', 'TensorFlow', 'Redis', 'Elasticsearch'],
     client: 'SocialMetrics Ltd',
     duration: '5 months',
@@ -108,7 +104,7 @@ const portfolioProjects = [
     title: 'Restaurant Management System',
     category: 'Web Development',
     description: 'Complete restaurant management solution with POS integration, inventory tracking, and customer loyalty program.',
-    image: '/images/projects/restaurant.jpg',
+    image: '/images/coloron.png',
     technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Twilio'],
     client: 'FoodChain Restaurants',
     duration: '3 months',
@@ -122,7 +118,7 @@ const portfolioProjects = [
     title: 'Fitness Tracking Mobile App',
     category: 'Mobile App',
     description: 'Comprehensive fitness app with workout planning, nutrition tracking, and social features for fitness enthusiasts.',
-    image: '/images/projects/fitness.jpg',
+    image: '/images/teqtronics.png',
     technologies: ['Flutter', 'Firebase', 'Node.js', 'MongoDB', 'HealthKit'],
     client: 'FitLife Solutions',
     duration: '4 months',
@@ -136,7 +132,7 @@ const portfolioProjects = [
     title: 'Blockchain Voting System',
     category: 'Blockchain',
     description: 'Secure and transparent voting platform built on blockchain technology with smart contracts and real-time result tracking.',
-    image: '/images/projects/voting.jpg',
+    image: '/images/techhub.png',
     technologies: ['Solidity', 'Web3.js', 'React', 'Ethereum', 'IPFS'],
     client: 'VoteSecure Foundation',
     duration: '6 months',
@@ -288,20 +284,18 @@ const Portfolio = () => {
                 {filteredProjects.map((project, index) => (
                   <motion.div
                     key={project.id}
-                    className="project-card group cursor-pointer"
+                    className="project-card group cursor-pointer h-full"
                     onClick={() => openModal(project)}
                     whileHover={{ y: -10 }}
                   >
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full flex flex-col">
                       {/* Project Image */}
-                      <div className="relative h-48 bg-gradient-to-br from-primary-100 to-accent-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-accent-500/20"></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-4xl font-bold text-white/30">
-                            {project.title.split(' ')[0]}
-                          </div>
-                        </div>
-
+                      <div className="relative h-48 overflow-hidden flex-shrink-0">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
                         {project.featured && (
                           <div className="absolute top-4 right-4">
                             <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-full text-xs font-bold">
@@ -309,14 +303,13 @@ const Portfolio = () => {
                             </span>
                           </div>
                         )}
-
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                           <div className="text-white font-medium">View Details</div>
                         </div>
                       </div>
 
                       {/* Project Content */}
-                      <div className="p-6">
+                      <div className="p-6 flex-1 flex flex-col">
                         <div className="flex items-center justify-between mb-3">
                           <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium capitalize">
                             {project.category}
@@ -331,13 +324,15 @@ const Portfolio = () => {
                           {project.title}
                         </h3>
 
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                          {project.description}
+                        <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed flex-1 min-h-[4.5rem]">
+                          {project.description.length > 120
+                            ? `${project.description.substring(0, 120)}...`
+                            : project.description}
                         </p>
 
                         {/* Technologies */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.technologies.slice(0, 3).map((tech) => (
+                        <div className="flex flex-wrap gap-2 mb-4 min-h-[2rem]">
+                          {(project.technologies || []).slice(0, 3).map((tech) => (
                             <span
                               key={tech}
                               className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
@@ -345,7 +340,7 @@ const Portfolio = () => {
                               {tech}
                             </span>
                           ))}
-                          {project.technologies.length > 3 && (
+                          {(project.technologies && project.technologies.length > 3) && (
                             <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs">
                               +{project.technologies.length - 3} more
                             </span>
@@ -353,7 +348,7 @@ const Portfolio = () => {
                         </div>
 
                         {/* Project Stats */}
-                        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-auto">
                           <div className="flex items-center space-x-1">
                             <FiUsers className="w-4 h-4" />
                             <span>{project.teamSize} team members</span>
@@ -430,6 +425,14 @@ const Portfolio = () => {
                 </button>
               </div>
 
+              <div className="mb-6">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+              </div>
+
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 {selectedProject.description}
               </p>
@@ -448,7 +451,7 @@ const Portfolio = () => {
               <div className="mb-6">
                 <span className="text-sm text-gray-500 dark:text-gray-400 block mb-2">Technologies</span>
                 <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((tech) => (
+                  {(selectedProject.technologies || []).map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 rounded-lg text-sm"

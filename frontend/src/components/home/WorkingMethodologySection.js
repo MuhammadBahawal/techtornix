@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  FiZap,
-  FiPenTool,
-  FiCode,
-  FiTrendingUp,
+import { 
+  FiZap, 
+  FiPenTool, 
+  FiCode, 
+  FiTrendingUp, 
   FiHeadphones,
-  FiArrowRight
+  FiArrowRight 
 } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,35 +23,35 @@ const WorkingMethodologySection = () => {
       title: 'Plan',
       description: 'We start by understanding your vision, analyzing requirements, and creating a comprehensive project roadmap.',
       details: ['Requirements Analysis', 'Market Research', 'Technical Planning', 'Timeline Creation'],
-      color: 'bg-yellow-500'
+      color: 'from-yellow-500 to-orange-500'
     },
     {
       icon: FiPenTool,
       title: 'Design',
       description: 'Our design team creates intuitive and visually appealing interfaces that enhance user experience.',
       details: ['UI/UX Design', 'Wireframing', 'Prototyping', 'Design System'],
-      color: 'bg-pink-500'
+      color: 'from-pink-500 to-purple-500'
     },
     {
       icon: FiCode,
       title: 'Develop',
       description: 'We bring designs to life using cutting-edge technologies and best development practices.',
       details: ['Frontend Development', 'Backend Development', 'Database Design', 'API Integration'],
-      color: 'bg-blue-500'
+      color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: FiTrendingUp,
       title: 'Deploy',
       description: 'We ensure smooth deployment with proper testing, optimization, and performance monitoring.',
       details: ['Quality Testing', 'Performance Optimization', 'Cloud Deployment', 'Go-Live Support'],
-      color: 'bg-green-500'
+      color: 'from-green-500 to-emerald-500'
     },
     {
       icon: FiHeadphones,
       title: 'Support',
       description: 'Our commitment continues with ongoing maintenance, updates, and technical support.',
       details: ['24/7 Monitoring', 'Regular Updates', 'Bug Fixes', 'Feature Enhancements'],
-      color: 'bg-indigo-500'
+      color: 'from-indigo-500 to-purple-500'
     }
   ];
 
@@ -101,11 +101,15 @@ const WorkingMethodologySection = () => {
     return () => ctx.revert();
   }, []);
 
+  // Find the 'Develop' phase step
+  const developStep = steps.find((step) => step.title === 'Develop');
+  const DevelopIcon = developStep.icon;
+
   return (
-    <section
-      ref={sectionRef}
+    <section 
+      ref={sectionRef} 
       className="container-custom"
-      style={{
+      style={{ 
         isolation: 'isolate',
         position: 'relative',
         zIndex: 1,
@@ -125,10 +129,17 @@ const WorkingMethodologySection = () => {
             Our Working <span className="gradient-text">Methodologies</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            We follow a proven methodology that ensures successful project delivery,
+            We follow a proven methodology that ensures successful project delivery, 
             from initial concept to ongoing support.
           </p>
         </motion.div>
+      </div>
+
+      {/* Show Develop phase icon here */}
+      <div className="flex justify-center mb-12">
+        <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl">
+          <DevelopIcon className="w-20 h-20 text-white" />
+        </div>
       </div>
 
       <div className="relative">
@@ -143,31 +154,26 @@ const WorkingMethodologySection = () => {
             return (
               <motion.div
                 key={step.title}
-                className={`methodology-step flex flex-col lg:flex-row items-center gap-8 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  }`}
+                className={`methodology-step flex flex-col lg:flex-row items-center gap-8 ${
+                  isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                }`}
               >
                 {/* Content */}
                 <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'} text-center lg:text-left`}>
                   <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 group">
-                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl ${step.color} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
-
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                       {step.title}
                     </h3>
-
                     <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                       {step.description}
                     </p>
-
                     <div className="grid grid-cols-2 gap-3">
                       {step.details.map((detail, idx) => (
-                        <div
+                        <div 
                           key={idx}
                           className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400"
                         >
-                          <div className={`w-2 h-2 rounded-full ${step.color}`}></div>
+                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${step.color}`}></div>
                           <span>{detail}</span>
                         </div>
                       ))}
@@ -177,7 +183,7 @@ const WorkingMethodologySection = () => {
 
                 {/* Timeline dot */}
                 <div className="relative z-10 hidden lg:block">
-                  <div className={`w-20 h-20 rounded-full ${step.color} flex items-center justify-center shadow-xl`}>
+                  <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-xl`}>
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
                       <span className="text-lg font-bold text-gray-900">
                         {index + 1}
@@ -188,13 +194,10 @@ const WorkingMethodologySection = () => {
 
                 {/* Visual representation */}
                 <div className="flex-1 flex justify-center">
-                  <div className="w-64 h-48 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center shadow-lg">
-                    <div className={`flex items-center justify-center rounded-full p-4 ${step.color}`}>
-                      <Icon className="w-28 h-28 text-white" />
-                    </div>
+                  <div className={`w-64 h-48 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+                    <Icon className="w-20 h-20 text-white" />
                   </div>
                 </div>
-
               </motion.div>
             );
           })}

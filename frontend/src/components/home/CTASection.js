@@ -42,12 +42,9 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section
+    <section 
       ref={sectionRef}
-  className="relative w-screen left-1/2 right-1/2 -mx-[50vw] py-20 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #37b7c3 0%, #2a8a94 50%, #1d5f68 100%)'
-      }}
+      className="relative py-20 bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -76,10 +73,12 @@ const CTASection = () => {
               Ready to Transform Your
               <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
                 Digital Presence?
+                 <br />
               </span>
+             
             </h2>
             <p className="text-xl text-primary-100 max-w-3xl mx-auto leading-relaxed">
-              Let's collaborate to bring your vision to life with cutting-edge technology
+              Let's collaborate to bring your vision to life with cutting-edge technology 
               and innovative solutions that drive real results.
             </p>
           </motion.div>
@@ -95,14 +94,16 @@ const CTASection = () => {
             <Link
               to="/contact"
               className="group inline-flex items-center px-8 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              onClick={e => { e.preventDefault(); window.history.pushState({}, '', '/contact'); window.dispatchEvent(new PopStateEvent('popstate')); }}
             >
               <span>Start Your Project</span>
               <FiArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
-
+            
             <Link
               to="/portfolio"
               className="group inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300"
+              onClick={e => { e.preventDefault(); window.history.pushState({}, '', '/portfolio'); window.dispatchEvent(new PopStateEvent('popstate')); }}
             >
               <span>View Our Work</span>
               <FiArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />

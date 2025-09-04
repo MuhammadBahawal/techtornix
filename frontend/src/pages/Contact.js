@@ -3,17 +3,17 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
+import emailjs from '@emailjs/browser';
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
   FiClock,
   FiSend,
   FiUser,
   FiMessageSquare
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
-import adminDataManager from '../utils/adminData';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,8 +25,7 @@ const Contact = () => {
     phone: '',
     company: '',
     service: '',
-    message: '',
-    budget: ''
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -68,14 +67,6 @@ const Contact = () => {
     'Other'
   ];
 
-  const budgetRanges = [
-    '$5,000 - $10,000',
-    '$10,000 - $25,000',
-    '$25,000 - $50,000',
-    '$50,000 - $100,000',
-    '$100,000+'
-  ];
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.contact-card').forEach((card, index) => {
@@ -107,24 +98,51 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Save contact message to admin data
-      const contactData = {
-        ...formData,
-        isRead: false,
-        isStarred: false,
-        createdAt: new Date().toISOString()
+      // EmailJS configuration
+      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'service_u8nkfq8';
+      const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'template_vg8yvg8';
+      const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'coqd8TXoL3rGNrfy_';
+
+      // Prepare template parameters to match your EmailJS template exactly
+      const templateParams = {
+        user_name: formData.name,
+        user_email: formData.email,
+        user_phone: formData.phone || 'Not provided',
+        message: `📩 New Contact Request
+
+👤 Full Name: ${formData.name}
+📧 Email Address: ${formData.email}
+📞 Contact Number: ${formData.phone || 'Not provided'}
+🏢 Company: ${formData.company || 'Not specified'}
+🔧 Service Interested In: ${formData.service || 'Not specified'}
+
+📝 Project Description:
+${formData.message}
+
+---
+Sent via Contact form on your website.`
       };
-      
-      adminDataManager.create('contacts', contactData);
-      
-      toast.success('Message sent successfully! We\'ll get back to you soon.');
-      setFormData({
-        name: '', email: '', phone: '', company: '',
-        service: '', message: '', budget: ''
-      });
+
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (result.status === 200) {
+        toast.success('Message sent successfully! We\'ll get back to you soon.');
+        setFormData({
+          name: '', email: '', phone: '', company: '',
+          service: '', message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
-      console.error('Error saving contact message:', error);
-      toast.error('Failed to send message. Please try again.');
+      console.error('Error sending contact message:', error);
+      toast.error('Failed to send message. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -157,7 +175,7 @@ const Contact = () => {
                 Get In <span className="gradient-text">Touch</span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Ready to start your next project? We'd love to hear from you. 
+                Ready to start your next project? We'd love to hear from you.
                 Send us a message and we'll respond as soon as possible.
               </p>
             </motion.div>
@@ -207,7 +225,7 @@ const Contact = () => {
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                     Send us a Message
                   </h2>
-                  
+
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
@@ -222,12 +240,13 @@ const Contact = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                            disabled={isSubmitting}
+                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                             placeholder="Your full name"
                           />
                         </div>
                       </div>
-                      
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Email Address *
@@ -240,7 +259,8 @@ const Contact = () => {
                             value={formData.email}
                             onChange={handleInputChange}
                             required
-                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                            disabled={isSubmitting}
+                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                             placeholder="your@email.com"
                           />
                         </div>
@@ -259,12 +279,13 @@ const Contact = () => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                            disabled={isSubmitting}
+                            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                             placeholder="+92 910 132 9836"
                           />
                         </div>
                       </div>
-                      
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Company
@@ -274,13 +295,14 @@ const Contact = () => {
                           name="company"
                           value={formData.company}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                           placeholder="Your company name"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Service Interested In
@@ -289,7 +311,8 @@ const Contact = () => {
                           name="service"
                           value={formData.service}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                          disabled={isSubmitting}
+                          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                         >
                           <option value="">Select a service</option>
                           {services.map((service) => (
@@ -299,26 +322,7 @@ const Contact = () => {
                           ))}
                         </select>
                       </div>
-                      
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Project Budget
-                        </label>
-                        <select
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
-                        >
-                          <option value="">Select budget range</option>
-                          {budgetRanges.map((range) => (
-                            <option key={range} value={range}>
-                              {range}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
+                    </div> */}
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -331,8 +335,9 @@ const Contact = () => {
                           value={formData.message}
                           onChange={handleInputChange}
                           required
+                          disabled={isSubmitting}
                           rows={5}
-                          className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white"
+                          className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-600 dark:text-white disabled:opacity-50"
                           placeholder="Tell us about your project, requirements, timeline, etc."
                         />
                       </div>
@@ -341,13 +346,13 @@ const Contact = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-[#37b7c3] to-[#071952] text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     >
                       {isSubmitting ? (
-                        <div className="flex items-center justify-center">
+                        <>
                           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                          Sending...
-                        </div>
+                          Sending Message...
+                        </>
                       ) : (
                         <>
                           <FiSend className="w-5 h-5 mr-2" />
@@ -387,24 +392,24 @@ const Contact = () => {
                 </div>
 
                 {/* Quick Contact */}
-                <div className="bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl p-8 text-white">
+                <div className="bg-gradient-to-br from-[#37b7c3] to-[#071952] rounded-2xl p-8 text-white">
                   <h3 className="text-2xl font-bold mb-4">
                     Need Immediate Help?
                   </h3>
-                  <p className="text-primary-100 mb-6">
+                  <p className="text-blue-100 mb-6">
                     For urgent inquiries or immediate assistance, don't hesitate to call us directly.
                   </p>
                   <div className="space-y-3">
                     <a
                       href="tel:+929101329836"
-                      className="flex items-center space-x-3 text-white hover:text-primary-100 transition-colors duration-200"
+                      className="flex items-center space-x-3 text-white hover:text-blue-100 transition-colors duration-200"
                     >
                       <FiPhone className="w-5 h-5" />
                       <span>+92 910 132 9836</span>
                     </a>
                     <a
                       href="mailto:info@techtornix.com"
-                      className="flex items-center space-x-3 text-white hover:text-primary-100 transition-colors duration-200"
+                      className="flex items-center space-x-3 text-white hover:text-blue-100 transition-colors duration-200"
                     >
                       <FiMail className="w-5 h-5" />
                       <span>info@techtornix.com</span>

@@ -7,7 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   FiCalendar,
   FiUser,
-  FiTag,
   FiArrowRight,
   FiSearch,
   FiFilter

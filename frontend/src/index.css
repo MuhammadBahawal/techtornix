@@ -7,7 +7,7 @@
   * {
     @apply border-gray-200 dark:border-gray-700;
   }
-  
+
   body {
     @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -26,9 +26,17 @@
 
   /* Tech Stack Animations */
   @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .tech-card {
@@ -44,9 +52,11 @@
       transform: translateX(-100%) skewX(-12deg);
       opacity: 0;
     }
+
     50% {
       opacity: 1;
     }
+
     100% {
       transform: translateX(100%) skewX(-12deg);
       opacity: 0;
@@ -117,7 +127,7 @@
   }
 
   .container-custom {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .gradient-text {
@@ -182,7 +192,7 @@
   --primary-700: #1d4ed8;
   --primary-800: #1e40af;
   --primary-900: #1e3a8a;
-  
+
   --accent-50: #f0f9ff;
   --accent-100: #e0f2fe;
   --accent-200: #bae6fd;
@@ -193,7 +203,7 @@
   --accent-700: #0369a1;
   --accent-800: #075985;
   --accent-900: #0c4a6e;
-  
+
   /* Dark theme colors matching reference */
   --dark-bg-primary: #1a1625;
   --dark-bg-secondary: #2a2438;
@@ -271,18 +281,33 @@
 }
 
 @keyframes loading-dots1 {
-  0% { transform: scale(0); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes loading-dots3 {
-  0% { transform: scale(1); }
-  100% { transform: scale(0); }
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
 }
 
 @keyframes loading-dots2 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(24px, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
 }
 
 /* Custom animations for tech stack */
@@ -290,6 +315,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -300,10 +326,12 @@
     transform: scale(0) rotate(0deg);
     opacity: 1;
   }
+
   50% {
     transform: scale(1) rotate(180deg);
     opacity: 0.8;
   }
+
   100% {
     transform: scale(0) rotate(360deg);
     opacity: 0;
@@ -311,17 +339,22 @@
 }
 
 @keyframes particle-float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) scale(0);
     opacity: 0;
   }
+
   10% {
     opacity: 1;
     transform: scale(1);
   }
+
   90% {
     opacity: 1;
   }
+
   100% {
     transform: translateY(-20px) scale(0);
     opacity: 0;
@@ -374,9 +407,11 @@
     transform: translateX(-100%) translateY(-100%) rotate(45deg);
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(100%) translateY(100%) rotate(45deg);
     opacity: 0;

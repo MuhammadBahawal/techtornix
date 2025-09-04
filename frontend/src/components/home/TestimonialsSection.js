@@ -97,7 +97,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-  <section ref={sectionRef} className="w-full bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20">
+    <section ref={sectionRef} className="container-custom">
       <div className="text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -115,7 +115,7 @@ const TestimonialsSection = () => {
       </div>
 
       {/* Main Testimonial Carousel */}
-  <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative mb-12">
+      <div className="relative max-w-4xl mx-auto mb-12">
         <div className="relative overflow-hidden rounded-2xl">
           <AnimatePresence mode="wait">
             <motion.div

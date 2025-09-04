@@ -233,7 +233,7 @@ const TechStackSection = () => {
 
   return (
     <section ref={sectionRef} className="tech-stack-section bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20 relative filter-stable" style={{ isolation: 'isolate' }}>
-  <div className="container-custom">
+      <div className="container-custom">
       <div className="text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

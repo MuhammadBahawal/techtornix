@@ -50,9 +50,11 @@ const Footer = () => {
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">Stay Updated with Our Newsletter</h3>
             <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
-              Get the latest insights on technology trends, development tips, and company updates delivered to your inbox.
+              Get the latest insights on technology trends, development tips, and company Follow US On LinkedIn.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            {/* linkedin icon */}
+            
+            {/* <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -62,7 +64,7 @@ const Footer = () => {
                 <span>Subscribe</span>
                 <FiArrowRight className="w-4 h-4" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

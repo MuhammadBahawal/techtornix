@@ -20,14 +20,10 @@ import Career from './pages/Career';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import Contact from './pages/Contact';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import ProtectedRoute from './components/admin/ProtectedRoute';
 import NotFound from './pages/NotFound';
 
 // Context
 import { ThemeProvider } from './context/ThemeContext';
-import { AuthProvider } from './context/AuthContext';
 
 // Analytics
 import { initializeTracking, trackPageVisitDebounced } from './utils/analytics';
@@ -73,52 +69,48 @@ function App() {
   }
 
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <div className="App min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-            }}
-          />
-          <ScrollToTop />
+    <ThemeProvider>
+      <div className="App min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+              zIndex: 9999999,
+            },
+          }}
+          containerStyle={{
+            zIndex: 9999999,
+          }}
+        />
+        <ScrollToTop />
 
-          <Navbar />
+        <Navbar />
 
-          <main className="pt-16 md:pt-20">
-            <AnimatePresence mode="wait">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/:slug" element={<ServiceDetail />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/career" element={<Career />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogDetail />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin/*" element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </AnimatePresence>
-          </main>
+        <main className="pt-16 md:pt-20">
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/career" element={<Career />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
 
-          <Footer />
-          <ChatbotWidget />
-        </div>
-      </ThemeProvider>
-    </AuthProvider>
+        <Footer />
+        <ChatbotWidget />
+      </div>
+    </ThemeProvider>
   );
 }
 

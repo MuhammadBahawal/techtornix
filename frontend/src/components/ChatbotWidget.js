@@ -217,7 +217,7 @@ const ChatbotWidget = () => {
             const fallbackResponse = getFallbackResponse(currentInput);
             const botResponse = {
                 id: Date.now() + 1,
-                text: fallbackResponse + '\n\n(Note: Using fallback due to API issue. Please try again later.)',
+                text: fallbackResponse + '\n\n(something went wrong)',
                 sender: 'bot',
                 timestamp: new Date(),
             };

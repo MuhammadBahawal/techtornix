@@ -113,7 +113,7 @@ const FeaturedProjects = () => {
   return (
     <section 
       ref={sectionRef} 
-  className="container-custom"
+      className="container-custom"
       style={{ 
         isolation: 'isolate',
         position: 'relative',

@@ -18,7 +18,6 @@ import {
   FiWifi
 } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
-import { useAuth } from '../../context/AuthContext';
 
 const services = [
   { name: 'Website Development', href: '/services/website-development', icon: FiGlobe },
@@ -37,9 +36,7 @@ const Navbar = () => {
   const [showServices, setShowServices] = useState(false);
   const location = useLocation();
   const { isDark, toggleTheme } = useTheme();
-  const { isAuthenticated, isAdmin } = useAuth();
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-
 
   const navRef = useRef(null);
   const servicesRef = useRef(null);
@@ -58,11 +55,9 @@ const Navbar = () => {
   useEffect(() => {
     if (navRef.current) {
       gsap.to(navRef.current, {
-        backgroundColor: isScrolled
-          ? isDark ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)'
-          : 'transparent',
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-        boxShadow: isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.1)' : 'none',
+        backgroundColor: isDark ? 'rgba(17, 24, 39, 0.98)' : 'rgba(255, 255, 255, 0.98)',
+        backdropFilter: 'blur(12px)',
+        boxShadow: isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.15)' : '0 2px 10px rgba(0, 0, 0, 0.08)',
         duration: 0.3,
         ease: 'power2.out'
       });
@@ -163,8 +158,9 @@ const Navbar = () => {
         right: 0,
         zIndex: 999999,
         isolation: 'isolate',
-        background: 'transparent',
-        backgroundColor: 'transparent',
+        backgroundColor: isDark ? 'rgba(17, 24, 39, 0.98)' : 'rgba(255, 255, 255, 0.98)',
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.08)'
       }}
     >
       <div className="container-custom">
@@ -173,9 +169,14 @@ const Navbar = () => {
           <Link to="/" className="flex items-center group flex-shrink-0">
             <div className="w-20 h-20 md:w-20 md:h-20 from-primary-600 to-accent-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 p-1">
               <img
-                src="/images/logos/techtornix-iconLogo.png"
+                src={`${process.env.PUBLIC_URL}/images/logos/logo.png`}
                 alt="Techtornix Logo"
                 className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `${process.env.PUBLIC_URL}/images/logos/techtornixLogo.png`;
+                }}
+                onLoad={() => console.log('Logo loaded successfully')}
               />
             </div>
 
@@ -282,16 +283,6 @@ const Navbar = () => {
             >
               {isDark ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
             </button>
-
-            {/* Admin Dashboard Link */}
-            {isAuthenticated && isAdmin && (
-              <Link
-                to="/admin"
-                className="hidden lg:inline-flex btn-primary"
-              >
-                Dashboard
-              </Link>
-            )}
 
             {/* Mobile menu button */}
             <button
@@ -425,19 +416,6 @@ const Navbar = () => {
                     )}
                   </AnimatePresence>
                 </div>
-
-
-                {/* Mobile Admin Link */}
-                {isAuthenticated && isAdmin && (
-                  <div className="border-t pt-4 mt-6" style={{ borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' }}>
-                    <Link
-                      to="/admin"
-                      className="block w-full btn-primary text-center"
-                    >
-                      Admin Dashboard
-                    </Link>
-                  </div>
-                )}
               </div>
             </div>
           </motion.div>
