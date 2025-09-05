@@ -205,7 +205,7 @@ const About = () => {
                 </h2>
                 <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
                   <p>
-                    Founded in 2018, Techtornix began as a small team of passionate developers
+                    Founded in 2022, Techtornix began as a small team of passionate developers
                     with a big vision: to create technology solutions that make a real difference
                     in people's lives and businesses.
                   </p>

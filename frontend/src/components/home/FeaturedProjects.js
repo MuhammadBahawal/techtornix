@@ -17,7 +17,7 @@ const FeaturedProjects = () => {
       category: 'Web Development',
       description: 'A modern e-commerce platform with advanced features including real-time inventory, and seamless payment integration.',
       image: '/images/ecommerce.jpg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+  // technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
       link: 'https://dnahormonalhealth.com/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -28,7 +28,7 @@ const FeaturedProjects = () => {
       category: 'Education',
       description: 'A platform for tech education and community building, offering courses, events, and networking opportunities.',
       image: '/images/techhub.png',
-      technologies: ['React', 'Firebase', 'Node.js'],
+  // technologies: ['React', 'Firebase', 'Node.js'],
       link: 'https://techhubsystems.com/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -39,7 +39,7 @@ const FeaturedProjects = () => {
       category: 'Social Media',
       description: 'A modern website for a college showcasing its programs and campus life.',
       image: '/images/lidsCollege.png',
-      technologies: ['React', 'Node.js', 'MongoDB'],
+  // technologies: ['React', 'Node.js', 'MongoDB'],
       link: 'https://www.lidc.com.pk/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -50,7 +50,7 @@ const FeaturedProjects = () => {
       category: 'Electronics',
       description: 'A Modern website for software solutions.',
       image: '/images/teqtronics.png',
-      technologies: ['React', 'IoT', 'Node.js'],
+  // technologies: ['React', 'IoT', 'Node.js'],
       link: 'https://teqtronics.com/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -61,7 +61,7 @@ const FeaturedProjects = () => {
       category: 'Food & Beverage',
       description: 'A digital presence for a modern restaurant, featuring online menu, reservations, and customer reviews.',
       image: '/images/cravycrunch.png',
-      technologies: ['React', 'Node.js'],
+  // technologies: ['React', 'Node.js'],
       link: 'https://www.cravycrunch.co.uk/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -72,7 +72,7 @@ const FeaturedProjects = () => {
       category: 'Design',
       description: 'A creative design agency portfolio showcasing branding and digital design projects.',
       image: '/images/color-on.png',
-      technologies: ['React', 'Figma'],
+  // technologies: ['React', 'Figma'],
       link: 'https://color-on.com/',
       github: 'https://github.com/muhammadBahawal/',
       featured: true
@@ -205,17 +205,7 @@ const FeaturedProjects = () => {
                   {project.description}
                 </p>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {/* Technologies section removed as requested */}
 
                 {/* CTA */}
                 <Link

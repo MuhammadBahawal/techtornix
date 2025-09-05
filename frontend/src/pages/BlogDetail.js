@@ -25,12 +25,12 @@ const BlogDetail = () => {
   // Mock blog post data - in real app, fetch from API
   const mockPost = {
     id: 1,
-    title: 'The Future of Web Development: Trends to Watch in 2024',
-    slug: 'future-web-development-2024',
+    title: 'The Future of Web Development: Trends to Watch in 2025',
+    slug: 'future-web-development-2025',
     excerpt: 'Explore the latest trends shaping the future of web development, from AI integration to progressive web apps.',
     content: `
       <h2>Introduction</h2>
-      <p>The web development landscape is constantly evolving, and 2024 promises to bring exciting new trends and technologies that will reshape how we build and interact with web applications.</p>
+      <p>The web development landscape is constantly evolving, and 2025 promises to bring exciting new trends and technologies that will reshape how we build and interact with web applications.</p>
       
       <h2>AI-Powered Development</h2>
       <p>Artificial Intelligence is revolutionizing web development in unprecedented ways. From automated code generation to intelligent debugging, AI tools are becoming indispensable for modern developers.</p>
@@ -54,7 +54,7 @@ const BlogDetail = () => {
     `,
     category: 'technology',
     author: 'John Smith',
-    date: '2024-01-15',
+    date: '2025-01-15',
     readTime: '5 min read',
     image: '/images/blog/web-dev-trends.jpg',
     tags: ['Web Development', 'AI', 'PWA', 'Trends'],
@@ -69,7 +69,7 @@ const BlogDetail = () => {
       excerpt: 'Learn the principles and best practices for designing user interfaces that users love to interact with.',
       category: 'design',
       author: 'Sarah Johnson',
-      date: '2024-01-10',
+      date: '2025-01-10',
       readTime: '7 min read',
       image: '/images/blog/ui-design.jpg'
     },
@@ -80,7 +80,7 @@ const BlogDetail = () => {
       excerpt: 'Discover how artificial intelligence is revolutionizing the way businesses operate and compete.',
       category: 'business',
       author: 'Mike Chen',
-      date: '2024-01-05',
+      date: '2025-01-05',
       readTime: '6 min read',
       image: '/images/blog/ai-business.jpg'
     }

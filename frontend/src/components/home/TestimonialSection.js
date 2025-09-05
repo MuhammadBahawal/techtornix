@@ -136,7 +136,7 @@ const TestimonialSection = () => {
   };
 
   return (
-    <section className="w-screen max-w-none bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" style={{ left: '50%', right: '50%', marginLeft: '-50vw', marginRight: '-50vw' }}>
+    <section className="w-screen max-w-none bg-gradient-to-br from-[#1a1625] via-[#2a2438] to-[#1a1625] py-20 relative overflow-x-hidden left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" style={{ left: '50%', right: '50%', marginLeft: '-50vw', marginRight: '-50vw' }}>
       <div className="container-custom mx-auto">
         {/* Stats Section */}
         <div ref={statsRef} className="mb-16">
@@ -327,7 +327,7 @@ const TestimonialSection = () => {
             </motion.div>
 
             {/* Stats overlay */}
-            <div className="absolute -bottom-12 -left-2  /* mobile devices par right aur neecha */ sm:-bottom-8 sm:-left-8 lg:-bottom-6 lg:-left-6 bg-[#2a2438]/90 backdrop-blur-sm border border-[#4a4458]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 max-w-[200px] sm:max-w-[240px] lg:max-w-none">
+            <div className="absolute -bottom-12 left-auto right-0 sm:-bottom-8 sm:-left-8 sm:right-auto lg:-bottom-6 lg:-left-6 bg-[#2a2438]/90 backdrop-blur-sm border border-[#4a4458]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 max-w-[200px] sm:max-w-[240px] lg:max-w-none">
 
               <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
                 <div className="text-center">

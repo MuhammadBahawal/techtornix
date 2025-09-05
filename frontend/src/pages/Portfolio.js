@@ -23,7 +23,7 @@ const portfolioProjects = [
     category: 'Web Development',
     description: 'TeqTronics Solutions is a global software house delivering cutting-edge web, mobile, and AI-powered solutions with a focus on innovation and scalability.',
     image: '/images/teqtronics.png',
-    technologies: ['React', 'Node.js', 'MongoDB'], // Added technologies
+  // technologies: ['React', 'Node.js', 'MongoDB'],
     duration: '4 months',
     teamSize: 5,
     projectUrl: 'https://www.teqtronics.com/',
@@ -36,7 +36,7 @@ const portfolioProjects = [
     category: 'Web Development',
     description: 'Developed a modern and responsive website for LIDS Group of Colleges, showcasing their academic excellence and student-focused approach.',
     image: '/images/lidsCollege.png',
-    technologies: ['HTML', 'CSS', 'JavaScript'], // Added technologies
+  // technologies: ['HTML', 'CSS', 'JavaScript'],
     duration: '4 months',
     teamSize: 5,
     projectUrl: 'https://www.lidc.com.pk/',
@@ -49,7 +49,7 @@ const portfolioProjects = [
     category: 'Education',
     description: 'Comprehensive financial management platform with real-time analytics, automated reporting, and AI-powered insights for businesses.',
     image: '/images/techhub.png',
-    technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Chart.js', 'AWS'],
+  // technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Chart.js', 'AWS'],
     client: 'FinanceFlow Corp',
     duration: '5 months',
     teamSize: 4,
@@ -63,7 +63,7 @@ const portfolioProjects = [
     category: 'Web Development',
     description: 'Complete property management solution with virtual tours, CRM integration, and automated marketing tools for real estate agencies.',
     image: '/images/teqtronics.png',
-    technologies: ['Angular', 'Laravel', 'MySQL', 'Three.js', 'Google Maps API'],
+  // technologies: ['Angular', 'Laravel', 'MySQL', 'Three.js', 'Google Maps API'],
     client: 'PropertyPro Agency',
     duration: '3 months',
     teamSize: 4,
@@ -77,7 +77,7 @@ const portfolioProjects = [
     category: 'E-Learning',
     description: 'Interactive online learning platform with video streaming, progress tracking, and gamification elements for enhanced student engagement.',
     image: '/images/cravycrunch.png',
-    technologies: ['React', 'Express.js', 'MongoDB', 'WebRTC', 'AWS S3'],
+  // technologies: ['React', 'Express.js', 'MongoDB', 'WebRTC', 'AWS S3'],
     client: 'EduTech Academy',
     duration: '4 months',
     teamSize: 5,
@@ -91,7 +91,7 @@ const portfolioProjects = [
     category: 'AI/ML',
     description: 'Advanced social media monitoring and analytics platform with sentiment analysis, trend prediction, and automated reporting.',
     image: '/images/tribe.png',
-    technologies: ['Python', 'Django', 'TensorFlow', 'Redis', 'Elasticsearch'],
+  // technologies: ['Python', 'Django', 'TensorFlow', 'Redis', 'Elasticsearch'],
     client: 'SocialMetrics Ltd',
     duration: '5 months',
     teamSize: 6,
@@ -105,7 +105,7 @@ const portfolioProjects = [
     category: 'Web Development',
     description: 'Complete restaurant management solution with POS integration, inventory tracking, and customer loyalty program.',
     image: '/images/coloron.png',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Twilio'],
+  // technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Twilio'],
     client: 'FoodChain Restaurants',
     duration: '3 months',
     teamSize: 3,
@@ -119,7 +119,7 @@ const portfolioProjects = [
     category: 'Mobile App',
     description: 'Comprehensive fitness app with workout planning, nutrition tracking, and social features for fitness enthusiasts.',
     image: '/images/teqtronics.png',
-    technologies: ['Flutter', 'Firebase', 'Node.js', 'MongoDB', 'HealthKit'],
+  // technologies: ['Flutter', 'Firebase', 'Node.js', 'MongoDB', 'HealthKit'],
     client: 'FitLife Solutions',
     duration: '4 months',
     teamSize: 4,
@@ -133,7 +133,7 @@ const portfolioProjects = [
     category: 'Blockchain',
     description: 'Secure and transparent voting platform built on blockchain technology with smart contracts and real-time result tracking.',
     image: '/images/techhub.png',
-    technologies: ['Solidity', 'Web3.js', 'React', 'Ethereum', 'IPFS'],
+  // technologies: ['Solidity', 'Web3.js', 'React', 'Ethereum', 'IPFS'],
     client: 'VoteSecure Foundation',
     duration: '6 months',
     teamSize: 5,
@@ -223,7 +223,7 @@ const Portfolio = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="min-h-screen pt-8"
+        className="min-h-screen pt-8 "
       >
         {/* Hero Section */}
         <section className="section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800">
@@ -330,22 +330,7 @@ const Portfolio = () => {
                             : project.description}
                         </p>
 
-                        {/* Technologies */}
-                        <div className="flex flex-wrap gap-2 mb-4 min-h-[2rem]">
-                          {(project.technologies || []).slice(0, 3).map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                          {(project.technologies && project.technologies.length > 3) && (
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs">
-                              +{project.technologies.length - 3} more
-                            </span>
-                          )}
-                        </div>
+                        {/* Technologies section removed as requested */}
 
                         {/* Project Stats */}
                         <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-auto">
@@ -403,14 +388,14 @@ const Portfolio = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-9999999"
             onClick={closeModal}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6"
+              className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 z-9999999 "
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-6">
@@ -448,19 +433,7 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <span className="text-sm text-gray-500 dark:text-gray-400 block mb-2">Technologies</span>
-                <div className="flex flex-wrap gap-2">
-                  {(selectedProject.technologies || []).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 rounded-lg text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              {/* Technologies section removed as requested */}
 
               <div className="flex gap-4">
                 <a

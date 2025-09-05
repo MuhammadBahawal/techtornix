@@ -5,16 +5,14 @@ const CompaniesCarousel = () => {
   const carouselRef = useRef(null);
 
   const companies = [
-    { name: 'Microsoft', logo: '/images/companies/microsoft.png' },
-    { name: 'Google', logo: '/images/companies/google.png' },
-    { name: 'Amazon', logo: '/images/companies/amazon.png' },
-    { name: 'Apple', logo: '/images/companies/apple.png' },
-    { name: 'Meta', logo: '/images/companies/meta.png' },
-    { name: 'Netflix', logo: '/images/companies/netflix.png' },
-    { name: 'Tesla', logo: '/images/companies/tesla.png' },
-    { name: 'Spotify', logo: '/images/companies/spotify.png' },
-    { name: 'Uber', logo: '/images/companies/uber.png' },
-    { name: 'Airbnb', logo: '/images/companies/airbnb.png' },
+    { name: 'Tech-Hub', logo: '/images/logos/techhub.webp' },
+    { name: 'Cravy Crunch', logo: '/images/logos/cravycrunch1.webp' },
+    { name: 'Teqtronics', logo: '/images/logos/teqtronics1.webp' },
+    { name: 'LIDS College', logo: '/images/logos/lids.webp' },
+    { name: 'AMS', logo: '/images/logos/ams.webp' },
+    { name: 'Hypernexis', logo: '/images/logos/hypernexislogo.webp' },
+    { name: 'JCBuck', logo: '/images/logos/jcbuck.webp' },
+    { name: 'Tribe Dishes', logo: '/images/logos/TribeDishes.webp' },
   ];
 
   useEffect(() => {
@@ -25,8 +23,8 @@ const CompaniesCarousel = () => {
     const tl = gsap.timeline({ repeat: -1 });
     
     tl.to(carousel, {
-      x: `-${companies.length * 200}px`,
-      duration: companies.length * 2,
+      x: `-${companies.length * 280}px`,
+      duration: companies.length * 3,
       ease: "none"
     });
 
@@ -51,19 +49,16 @@ const CompaniesCarousel = () => {
         <div 
           ref={carouselRef}
           className="flex items-center space-x-12"
-          style={{ width: `${companies.length * 400}px` }}
+          style={{ width: `${companies.length * 560}px` }}
         >
           {[...companies, ...companies].map((company, index) => (
-            <div
+            <img
               key={`${company.name}-${index}`}
-              className="flex-shrink-0 w-32 h-16 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
-            >
-              <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-                  {company.name}
-                </span>
-              </div>
-            </div>
+              src={company.logo}
+              alt={company.name}
+              className="flex-shrink-0 w-48 h-24 object-contain max-h-20 max-w-[90%] grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+              style={{ display: 'block' }}
+            />
           ))}
         </div>
       </div>

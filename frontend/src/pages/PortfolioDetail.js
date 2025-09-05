@@ -37,7 +37,7 @@ const PortfolioDetail = () => {
     client: 'TechCorp Solutions',
     duration: '6 months',
     teamSize: '5 developers',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'AWS', 'Docker'],
+  // technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'AWS', 'Docker'],
     features: [
       'Real-time inventory management',
       'Secure payment processing with Stripe',
@@ -268,28 +268,7 @@ const PortfolioDetail = () => {
           </div>
         </section>
 
-        {/* Technologies */}
-        <section className="section-padding bg-gray-50 dark:bg-gray-800 fade-in-section">
-          <div className="container-custom">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-              Technologies Used
-            </h2>
-            <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-              {project.technologies.map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="px-6 py-3 bg-white dark:bg-gray-700 rounded-full shadow-lg text-gray-700 dark:text-gray-300 font-medium hover:shadow-xl hover:scale-105 transition-all duration-200"
-                >
-                  {tech}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-        </section>
+  {/* Technologies section removed as requested */}
 
         {/* Features & Challenges */}
         <section className="section-padding fade-in-section">
