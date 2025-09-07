@@ -341,7 +341,7 @@ const Navbar = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`block px-6 py-4 rounded-lg text-lg font-semibold transition-colors duration-200 relative z-10 border-2 mb-3 ${isActive(item.href)
+                    className={`block px-6 py-4 rounded-lg text-lg font-semibold transition-colors duration-200 relative z-10  mb-3 ${isActive(item.href)
                       ? 'bg-primary-600 text-white border-primary-600 shadow-lg'
                       : ''
                       }`}

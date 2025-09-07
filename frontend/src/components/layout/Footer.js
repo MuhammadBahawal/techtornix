@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
-  FiFacebook, 
-  FiLinkedin, 
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiFacebook,
+  FiLinkedin,
   FiInstagram,
   FiGithub,
   FiArrowRight
@@ -46,14 +46,14 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
       <div className="bg-gradient-to-r from-primary-600 to-accent-600 py-12">
-  <div className="container-custom">
+        <div className="container-custom">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">Stay Updated with Our Newsletter</h3>
             <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
               Get the latest insights on technology trends, development tips, and company Follow US On LinkedIn.
             </p>
             {/* linkedin icon */}
-            
+
             {/* <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
@@ -71,7 +71,7 @@ const Footer = () => {
 
       {/* Main Footer */}
       <div className="py-16">
-  <div className="container-custom">
+        <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-1">
@@ -81,7 +81,7 @@ const Footer = () => {
                 </div>
                 <span className="text-2xl font-bold gradient-text">Techtornix</span>
               </Link>
-             {/* <p className="text-gray-400 mb-6 leading-relaxed">
+              {/* <p className="text-gray-400 mb-6 leading-relaxed">
                 We are a modern software house delivering cutting-edge solutions in web development, 
                 mobile apps, AI, and digital transformation services.
               </p>*/}
@@ -180,26 +180,23 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800 py-6">
+      <div className="border-t border-gray-800 py-4">
         <div className="container-custom">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm">
-              © {currentYear} Techtornix. All rights reserved.
-            </div>
-            <div className="flex items-center space-x-6 text-sm">
-              <Link to="/privacy" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
-                Privacy Policy
-              </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
-                Terms of Service
-              </Link>
-              <Link to="/cookies" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
-                Cookie Policy
-              </Link>
-            </div>
-            <div className="text-gray-400 text-sm">
-              Developed by Muhammad Bahawal
-            </div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-gray-400">
+            <span>© {new Date().getFullYear()} Techtornix. All rights reserved.</span>
+            {/* Uncomment if you want to include these links */}
+            {/* <div className="flex items-center gap-4">
+        <Link to="/privacy" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
+          Privacy Policy
+        </Link>
+        <Link to="/terms" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
+          Terms of Service
+        </Link>
+        <Link to="/cookies" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
+          Cookie Policy
+        </Link>
+      </div> */}
+            <span>Developed by TechTornix Solutions</span>
           </div>
         </div>
       </div>

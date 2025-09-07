@@ -73,7 +73,7 @@ const PortfolioDetail = () => {
     ],
     liveUrl: 'https://example-ecommerce.com',
     githubUrl: 'https://github.com/techtornix/ecommerce-platform',
-    date: '2023-12-15',
+    date: '2024-12-15',
     featured: true
   };
 
