@@ -25,22 +25,19 @@ import NotFound from './pages/NotFound';
 // Context
 import { ThemeProvider } from './context/ThemeContext';
 
-// Analytics
-import { initializeTracking, trackPageVisitDebounced } from './utils/analytics';
-
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
-  useEffect(() => {
-    // Initialize visitor tracking on app load
-    initializeTracking();
-  }, []);
+  // useEffect(() => {
+  //   // Initialize visitor tracking on app load
+  //   initializeTracking();
+  // }, []);
 
-  useEffect(() => {
-    // Track page changes
-    trackPageVisitDebounced(location.pathname);
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   // Track page changes
+  //   trackPageVisitDebounced(location.pathname);
+  // }, [location.pathname]);
 
   useEffect(() => {
     // Simulate loading time
@@ -109,8 +106,11 @@ function App() {
 
         <Footer />
         <ChatbotWidget />
+
+       
       </div>
     </ThemeProvider>
+
   );
 }
 

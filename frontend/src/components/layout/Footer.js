@@ -14,7 +14,7 @@ import {
 import XIcon from '../icons/XIcon';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+ 
 
   const quickLinks = [
     { name: 'Home', href: '/' },
@@ -183,7 +183,7 @@ const Footer = () => {
       <div className="border-t border-gray-800 py-4">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-gray-400">
-            <span>© {new Date().getFullYear()} Techtornix. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} Copyright 2025 - TechTornix Solutions, All Rights Reserved.</span>
             {/* Uncomment if you want to include these links */}
             {/* <div className="flex items-center gap-4">
         <Link to="/privacy" className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
@@ -196,7 +196,7 @@ const Footer = () => {
           Cookie Policy
         </Link>
       </div> */}
-            <span>Developed by TechTornix Solutions</span>
+           
           </div>
         </div>
       </div>
