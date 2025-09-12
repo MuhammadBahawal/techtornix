@@ -47,7 +47,7 @@ const VideoModal = ({ isOpen, onClose, videoUrl, title, type = 'youtube' }) => {
         hidden: {
             opacity: 0,
             scale: 0.8,
-            y: 50
+            y: 60
         },
         visible: {
             opacity: 1,
@@ -62,7 +62,7 @@ const VideoModal = ({ isOpen, onClose, videoUrl, title, type = 'youtube' }) => {
         exit: {
             opacity: 0,
             scale: 0.8,
-            y: 50,
+            y: 60,
             transition: {
                 duration: 0.2
             }
@@ -73,7 +73,7 @@ const VideoModal = ({ isOpen, onClose, videoUrl, title, type = 'youtube' }) => {
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                className="fixed inset-0 flex items-center justify-center p-4"
+                className="fixed inset-0 flex items-end sm:items-center justify-center p-4 overflow-y-auto"
                 style={{ zIndex: 999999 }}
                 variants={backdropVariants}
                 initial="hidden"
@@ -91,7 +91,7 @@ const VideoModal = ({ isOpen, onClose, videoUrl, title, type = 'youtube' }) => {
 
                     {/* Modal Content */}
                     <motion.div
-                        className="relative w-full max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+                        className="relative w-full max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-screen mt-8 sm:mt-16 md:mt-[650px] lg:mt-16 xl:mt-8"
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
